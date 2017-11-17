@@ -13,6 +13,9 @@
   </head>
   <body>
     <h3 style="text-align: center;">Route Planner</h3>
+<form action="createRoute.html">
+    <input type="submit" value="Create a route" />
+	</form>
     <div id="map"></div>
     <script>
       function initMap() {
@@ -27,9 +30,7 @@
         });
       }
     </script>
-	<form action="createRoute.html">
-    <input type="submit" value="Create a route" />
-	</form>
+	
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJqUQPs65F0LCP71ix5CBKddjegbgtVlI&callback=initMap">
     </script>
