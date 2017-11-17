@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<gpx version="1.1" creator="gpxgenerator.com">
+<wpt lat="55.87213276259261" lon="-4.288272857666016">
+    <ele>38.68</ele>
+    <time>2017-11-15T17:56:25Z</time>
+	<name>University of Glasgow</name>
+</wpt>
+<wpt lat="55.868617318169164" lon="-4.290676116943359">
+    <ele>19.91</ele>
+    <time>2017-11-15T18:01:24Z</time>
+	<name>Kelvingrove Museum</name>
+</wpt>
+<wpt lat="55.86514971879609" lon="-4.30638313293457">
+    <ele>7.15</ele>
+    <time>2017-11-15T18:13:56Z</time>
+	<name>Riverside Museum</name>
+</wpt>
+<wpt lat="55.85980322987921" lon="-4.255399703979492">
+    <ele>11.17</ele>
+    <time>2017-11-15T18:52:27Z</time>
+	<name>The Lighthouse</name>
+</wpt>
+<wpt lat="55.86115196314761" lon="-4.250249862670898">
+    <ele>11.95</ele>
+    <time>2017-11-15T18:56:40Z</time>
+	<name>George Square</name>
+</wpt>
+<wpt lat="55.863030477886184" lon="-4.234628677368164">
+    <ele>33.26</ele>
+    <time>2017-11-15T19:08:32Z</time>
+	<name>Glasgow Cathedral</name>
+</wpt>
+<wpt lat="55.85127622527688" lon="-4.237375259399414">
+    <ele>10.49</ele>
+    <time>2017-11-15T19:24:13Z</time>
+	<name>Glasgow Green</name>
+</wpt>
+<wpt lat="55.84973442018977" lon="-4.205617904663086">
+    <ele>20.60</ele>
+    <time>2017-11-15T19:47:54Z</time>
+	<name>Celtic Park</name>
+</wpt>
+</gpx>
