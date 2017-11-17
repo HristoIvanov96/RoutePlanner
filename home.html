@@ -1,19 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8">
       <title>Route Planner</title>
-      <style>
-       #map {
-        height: 100%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-      </style>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></script>
+    <script src= "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/home.css">
       <script src="loadgpx.js"></script>
       <script>
           function loadGPXFileIntoGoogleMap(map, filename) {
@@ -35,7 +32,10 @@
       </script>
   </head>
   <body>
-    <div id="map" style="width: 100%; height: 100%;"></div>
+    <form action="createRoute.html">
+    <input type="submit" value="Create a route" />
+	</form>
+    <div id="map"></div>
     <script>
       function initMap() {
           var mapOptions = {
@@ -59,9 +59,7 @@
 //          });
       }
     </script>
-	<form action="createRoute.html">
-    <input type="submit" value="Create a route" />
-	</form>
+
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJqUQPs65F0LCP71ix5CBKddjegbgtVlI&callback=initMap">
     </script>
