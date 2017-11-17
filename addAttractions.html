@@ -14,20 +14,39 @@
 	<h1 style="text-align: center;"> Attractions in Glasgow</h1>
 	<div style="text-align: center;">
 	<form action="" method="post">
-	  <input type="checkbox" name="Kelvingrove Art Gallery" value="0"  /> Kelvingrove Art Gallery <br/>
-	  <input type="checkbox" name="Riverside Museum" value="0" /> Riverside Museum <br/>
-	  <input type="checkbox" name="Glasgow Cathedral" value="0"  /> Glasgow Cathedral <br/>
-	  <input type="checkbox" name="Glasgow Uni" value="0" /> Glasgow University <br/>
-<input type="checkbox" name="The Lighthouse" value="0" /> The Lighthouse <br/>
-<input type="checkbox" name="Celtic Park" value="0" /> Celtic Park <br/>
-<input type="checkbox" name="George Square" value="0" /> George Square <br/>
-<input type="checkbox" name="Glasgow Green" value="0" /> Glasgow Green <br/>
+	  <input class="check" type="checkbox" name="Kelvingrove Art Gallery" value="0"  /> Kelvingrove Art Gallery <br/>
+	  <input class="check" type="checkbox" name="Riverside Museum" value="0" /> Riverside Museum <br/>
+	  <input class="check" type="checkbox" name="Glasgow Cathedral" value="0"  /> Glasgow Cathedral <br/>
+	  <input class="check" type="checkbox" name="Glasgow Uni" value="0" /> Glasgow University <br/>
+	  <input class="check" type="checkbox" name="The Lighthouse" value="0" /> The Lighthouse <br/>
+	  <input class="check" type="checkbox" name="Celtic Park" value="0" /> Celtic Park <br/>
+	  <input class="check" type="checkbox" name="George Square" value="0" /> George Square <br/>
+	  <input class="check" type="checkbox" name="Glasgow Green" value="0" /> Glasgow Green <br/>
 	</form>
 	</div>
-
 	
-	<form style="text-align: center;" action="showmap.html">
-    <input type="submit" value="Generate route" />
+	
+	<form style="text-align: center;" onclick="getCheckedBoxes();return false;"> 
+    <input  type="submit" value="Generate route" />
 	</form>
+	
+	<script>
+	function getCheckedBoxes() {
+			
+		  var checkboxes = document.getElementsByClassName('check');
+		  var checkboxesChecked = [];
+		  
+		  // loop over them all
+		  for (var i=0; i<checkboxes.length; i++) {
+			 // And stick the checked ones onto an array...
+			 if (checkboxes[i].checked) {
+				checkboxesChecked.push(checkboxes[i].nextSibling.nodeValue);
+			 }
+		  }
+		url = 'file:///D:/IS%20google%20maps/showmap.html?arr=' + encodeURIComponent(checkboxesChecked);
+		document.location.href = url;
+	}
+
+	</script>
   </body>
 </html>
