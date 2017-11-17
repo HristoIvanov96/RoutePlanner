@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <style>
+      <style>
        #map {
         height: 100%;
       }
@@ -11,22 +11,52 @@
         margin: 0;
         padding: 0;
       }
-    </style>
+      </style>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="loadgpx.js"></script>
+      <script>
+          function loadGPXFileIntoGoogleMap(map, filename) {
+              $.ajax({url: filename,
+                  dataType: "xml",
+                  success: function(data) {
+                      var parser = new GPXParser(data, map);
+                      alert("Done")
+                      parser.setTrackColour("#ff0000");     // Set the track line colour
+                      parser.setTrackWidth(5);          // Set the track line width
+                      parser.setMinTrackPointDelta(0.001);      // Set the minimum distance between track points
+                      parser.centerAndZoom(data);
+                      parser.addTrackpointsToMap();         // Add the trackpoints
+                      parser.addRoutepointsToMap();         // Add the routepoints
+                      parser.addWaypointsToMap();           // Add the waypoints
+                  }
+              });
+          }
+      </script>
   </head>
   <body>
     <h3 style="text-align: center;">Route Planner</h3>
-    <div id="map"></div>
+    <div id="map" style="width: 100%; height: 100%;"></div>
     <script>
       function initMap() {
-        var uluru = {lat: 55.8642, lng: -4.2518};
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 14,
-          center: uluru
-        });
-        var marker = new google.maps.Marker({
-          position: uluru,
-          map: map
-        });
+          var mapOptions = {
+              zoom: 10,
+              // mapTypeId: google.maps.MapTypeId.ROADMAP,
+              center: {lat: 46.00324717350304126739501953125, lng: 8.95168055780231952667236328125}
+          };
+          var map = new google.maps.Map(document.getElementById('map'),
+              mapOptions);
+          loadGPXFileIntoGoogleMap(map, "Lugano.gpx");
+
+
+//          var uluru = {lat: 55.8642, lng: -4.2518};
+//          var map = new google.maps.Map(document.getElementById('map'), {
+//              zoom: 14,
+//              center: uluru
+//          });
+//          var marker = new google.maps.Marker({
+//              position: uluru,
+//              map: map
+//          });
       }
     </script>
 	<form action="createRoute.html">
