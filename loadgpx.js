@@ -46,7 +46,7 @@
 // Fork moved to GitHub: https://github.com/peplin/gpxviewer
 //
 ///////////////////////////////////////////////////////////////////////////////
-
+var markers = [];
 function GPXParser(xmlDoc, map) {
     this.xmlDoc = xmlDoc;
     this.map = map;
@@ -122,6 +122,7 @@ GPXParser.prototype.createMarker = function(point) {
         position: new google.maps.LatLng(lat,lon),
         map: this.map
     });
+    markers.push(marker);
 
     var infowindow = new google.maps.InfoWindow({
         content: html,
@@ -297,6 +298,20 @@ GPXParser.prototype.addWaypointsToMap = function() {
     var waypoints = this.xmlDoc.documentElement.getElementsByTagName("wpt");
     for(var i = 0; i < waypoints.length; i++) {
         this.createMarker(waypoints[i]);
+    }
+}
+
+GPXParser.prototype.addOurPointsToMap = function(arr) {
+    var waypoints = this.xmlDoc.documentElement.getElementsByTagName("wpt");
+    console.log(arr[0]);
+    console.log(waypoints[0].childNodes[5].childNodes[0].textContent);
+    console.log(arr[0] === waypoints[0].childNodes[5].childNodes[0].textContent);
+    for(var i = 0; i < waypoints.length; i++) {
+        for(var j=0; j<arr.length; j++)
+            if(arr[j].trim() === waypoints[i].childNodes[5].childNodes[0].textContent){
+                this.createMarker(waypoints[i]);
+                break;
+            }
     }
 }
 

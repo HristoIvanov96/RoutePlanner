@@ -24,8 +24,8 @@
                       parser.setMinTrackPointDelta(0.001);      // Set the minimum distance between track points
                       parser.centerAndZoom(data);
                       parser.addTrackpointsToMap();         // Add the trackpoints
-                      parser.addRoutepointsToMap();         // Add the routepoints
-                      parser.addWaypointsToMap();           // Add the waypoints
+                      parser.addRoutepointsToMap();					  // Add the routepoints
+                      var arr = parser.addWaypointsToMap();           // Add the waypoints
                   }
               });
           }
@@ -45,18 +45,13 @@
           };
           var map = new google.maps.Map(document.getElementById('map'),
               mapOptions);
-          loadGPXFileIntoGoogleMap(map, "Lugano.gpx");
+          
 
-
-//          var uluru = {lat: 55.8642, lng: -4.2518};
-//          var map = new google.maps.Map(document.getElementById('map'), {
-//              zoom: 14,
-//              center: uluru
-//          });
-//          var marker = new google.maps.Marker({
-//              position: uluru,
-//              map: map
-//          });
+          /*var map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 14,
+              center: {lat: 55.8642, lng: -4.2518};
+          });*/
+          loadGPXFileIntoGoogleMap(map, "glasgow.gpx");
       }
     </script>
 
