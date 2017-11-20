@@ -1,0 +1,27 @@
+html {
+	background-color: #77ab59;
+}
+
+h1 {
+	font-family: "Times New Roman", Times, serif;
+	font-size: 55px;
+	color: white;
+	margin-bottom: 20px;
+}
+
+input[type=submit] {
+    width: 200px;
+    background-color: #36802d;
+    color: white;
+	font-size: 110%;
+	font-weight: bold;
+    padding: 12px 20px;
+    margin: 20px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #234d20;
+}

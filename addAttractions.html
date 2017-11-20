@@ -9,25 +9,33 @@
       crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></script>
     <script src= "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/addAttractions.css">
   </head>
-  <body>
-	<h1 style="text-align: center;"> Attractions in Glasgow</h1>
-	<div style="text-align: center;">
-	<form action="" method="post">
-	  <input class="check" type="checkbox" name="Kelvingrove Art Gallery" value="0"  /> Kelvingrove Art Gallery <br/>
-	  <input class="check" type="checkbox" name="Riverside Museum" value="1" /> Riverside Museum <br/>
-	  <input class="check" type="checkbox" name="Glasgow Cathedral" value="2"  /> Glasgow Cathedral <br/>
-	  <input class="check" type="checkbox" name="Glasgow Uni" value="3" /> Glasgow University <br/>
-	  <input class="check" type="checkbox" name="The Lighthouse" value="4" /> The Lighthouse <br/>
-	  <input class="check" type="checkbox" name="Celtic Park" value="5" /> Celtic Park <br/>
-	  <input class="check" type="checkbox" name="George Square" value="6" /> George Square <br/>
-	  <input class="check" type="checkbox" name="Glasgow Green" value="7" /> Glasgow Green <br/>
-	</form>
-	</div>
+	<body><center>
+		<h1>Attractions in Glasgow</h1>
+		<div class= "checkboxes">
+		<form action="" method="post">
+			<input type="checkbox" name="check" id= "Kelvingrove Art Gallery" value="0"/> Kelvingrove Art Gallery <br/>
+			<label for = "Kelvingrove Art Gallery"> </label>
+			<input type="checkbox" name="check" id= "Riverside Museum" value="1"/> Riverside Museum <br/>
+			<label for = "Riverside Museum"> </label>
+			<input type="checkbox" name="check" id= "Glasgow Cathedral" value="2"/> Glasgow Cathedral <br/>
+			<label for = "Glasgow Cathedral"> </label>
+			<input type="checkbox" name="check" id= "Glasgow Uni" value="3"/> Glasgow University <br/>
+			<label for = "Glasgow Uni"> </label>
+			<input type="checkbox" name="check" id= "The Lighthouse" value="4"/> The Lighthouse <br/>
+			<label for = "The Lighthouse"> </label>
+			<input type="checkbox" name="check" id= "Celtic Park" value="5"/> Celtic Park <br/>
+			<label for = "Celtic Park"> </label>
+			<input type="checkbox" name="check" id= "George Square" value="6"/> George Square <br/>
+			<label for = "George Square"> </label>
+			<input type="checkbox" name="check" id= "Glasgow Green" value="7"/> Glasgow Green <br/>
+			<label for = "Glasgow Green"> </label>
+		</form>
+		</div>
 	
-	
-	<form style="text-align: center;" onclick="getCheckedBoxes();return false;"> 
-    <input  type="submit" value="Generate route" />
+	<form onclick="getCheckedBoxes();return false;"> 
+		<input  type="submit" value="Generate Route" />
 	</form>
 	
 	<script>
@@ -48,5 +56,6 @@
 	}
 
 	</script>
+	</center>
   </body>
 </html>
