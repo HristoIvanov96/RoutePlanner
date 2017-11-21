@@ -188,13 +188,16 @@ GPXParser.prototype.addRouteToMap = function(route, colour, width) {
         return;
     }
 
-    var pointarray = [];
+    //var pointarray = [];
+    var origin = [];
+    var destinations = [];
 
     // process first point
     var lastlon = parseFloat(routepoints[0].getAttribute("lon"));
     var lastlat = parseFloat(routepoints[0].getAttribute("lat"));
     var latlng = new google.maps.LatLng(lastlat,lastlon);
-    pointarray.push(latlng);
+    //pointarray.push(latlng);
+    origin.push(latlng);
 
     for(var i = 1; i < routepoints.length; i++) {
         var lon = parseFloat(routepoints[i].getAttribute("lon"));
@@ -208,19 +211,46 @@ GPXParser.prototype.addRouteToMap = function(route, colour, width) {
             lastlon = lon;
             lastlat = lat;
             latlng = new google.maps.LatLng(lat,lon);
-            pointarray.push(latlng);
+            //pointarray.push(latlng);
+            destinations.push(latlng);
         }
 
     }
 
-    var polyline = new google.maps.Polyline({
+    var service = new google.maps.DistanceMatrixService();
+    service.getDistanceMatrix(
+    {
+        origins: origin,
+        destinations: destinations,
+        travelMode: 'WALKING';
+    }, callback);
+    
+    function callback(response, status) {
+        if (status == 'OK') {
+            var origins = response.originAddresses;
+            var destinations = response.destinationAddresses;
+
+        for (var i = 0; i < origins.length; i++) {
+            var results = response.rows[i].elements;
+            for (var j = 0; j < results.length; j++) {
+                var element = results[j];
+                var distance = element.distance.text;
+                var duration = element.duration.text;
+                var from = origins[i];
+                var to = destinations[j];
+      }
+    }
+  }
+}
+
+   /* var polyline = new google.maps.Polyline({
         path: pointarray,
         strokeColor: colour,
         strokeWeight: width,
         map: this.map
     });
 }
-
+*/
 GPXParser.prototype.centerAndZoom = function(trackSegment) {
 
     var pointlist = new Array("trkpt", "rtept", "wpt");
@@ -312,6 +342,48 @@ GPXParser.prototype.addOurPointsToMap = function(arr) {
                 break;
             }
     }
+}
+
+GPSParser.prototype.createRoute = function() {
+    var origin = [];
+    var destinations = [];
+    var lastlatlng = markers[0].getAttribute("position");
+    var latlng;
+    origin.push(latlng);
+
+    for(var i = 1; i < markers.length; i++) {
+            latlng = markers[i].getAttribute("position");
+            destinations.push(latlng);
+        }
+    }
+
+    var service = new google.maps.DistanceMatrixService();
+    service.getDistanceMatrix(
+    {
+        origins: origin,
+        destinations: destinations,
+        travelMode: 'WALKING';
+    }, callback);
+    
+    function callback(response, status) {
+        if (status == 'OK') {
+            var origins = response.originAddresses;
+            var destinations = response.destinationAddresses;
+
+        for (var i = 0; i < origins.length; i++) {
+            var results = response.rows[i].elements;
+            for (var j = 0; j < results.length; j++) {
+                var element = results[j];
+                var distance = element.distance.text;
+                var duration = element.duration.text;
+                var from = origins[i];
+                var to = destinations[j];
+      }
+    }
+  }
+}
+
+
 }
 
 GPXParser.prototype.addRoutepointsToMap = function() {
