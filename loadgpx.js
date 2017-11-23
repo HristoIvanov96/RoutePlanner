@@ -244,14 +244,6 @@ GPXParser.prototype.addRouteToMap = function(route, colour, width) {
     }
 }
 
-   /* var polyline = new google.maps.Polyline({
-        path: pointarray,
-        strokeColor: colour,
-        strokeWeight: width,
-        map: this.map
-    });
-}
-*/
 GPXParser.prototype.centerAndZoom = function(trackSegment) {
 
     var pointlist = new Array("trkpt", "rtept", "wpt");
@@ -350,7 +342,7 @@ GPXParser.prototype.createRoute = function() {
     var destinations = [];
     var lastlatlng = markers[0].getAttribute("position");
     var latlng;
-    origin.push(latlng);
+    origin.push(lastlatlng);
 
     for (var i = 1; i < markers.length; i++) {
         latlng = markers[i].getAttribute("position");
@@ -381,6 +373,35 @@ GPXParser.prototype.createRoute = function() {
                 }
             }
         }
+    }
+}
+
+GPXParser.prototype.test = function () {
+    var directionsDisplay = new google.maps.DirectionsRenderer();
+    var directionsService = new google.maps.DirectionsService();
+    map = this.map;
+    directionsDisplay.setMap(map);
+
+        var i;
+        var request = {
+            travelMode: google.maps.TravelMode.WALKING
+        };
+        for (i = 0; i < markers.length; i++) {
+
+            if (i == 0) request.origin = markers[i].getPosition();
+            else if (i == markers.length - 1) request.destination = markers[i].getPosition();
+            else {
+                if (!request.waypoints) request.waypoints = [];
+                request.waypoints.push({
+                    location: markers[i].getPosition(),
+                    stopover: true
+                });
+            }
+        directionsService.route(request, function(result, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                directionsDisplay.setDirections(result);
+            }
+        });
     }
 }
 

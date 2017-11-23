@@ -26,10 +26,10 @@
               var data1 = data.split("%2C").join(',');
               data1 = data1.split("%20").join(" ");
               data1 = data1.split(",");
-              document.getElementById('demo').innerHTML = data1;
+              //document.getElementById('demo').innerHTML = data1;
               initMap(data1);
 
-          }
+          };
 
           function initMap(arr) {
               var origin = {lat: 55.8642, lng: -4.2518};
@@ -48,6 +48,7 @@
                       var parser = new GPXParser(data, map);
                       parser.centerAndZoom(data);
                       parser.addOurPointsToMap(arr);
+                      parser.test();
                   }
               });
           }
