@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="46c9d761-b977-40be-8f07-ec48450ac825" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/addAttractions.html" afterPath="$PROJECT_DIR$/addAttractions.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/home.html" afterPath="$PROJECT_DIR$/home.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/showmap.html" afterPath="$PROJECT_DIR$/showmap.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -36,12 +33,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="addAttractions.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="addAttractions.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/addAttractions.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="457">
-              <caret line="74" column="13" lean-forward="false" selection-start-line="74" selection-start-column="13" selection-end-line="74" selection-end-column="13" />
+            <state relative-caret-position="287">
+              <caret line="34" column="48" lean-forward="true" selection-start-line="34" selection-start-column="48" selection-end-line="34" selection-end-column="48" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="createRoute.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/createRoute.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="561">
+              <caret line="33" column="8" lean-forward="false" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="8" />
+              <folding>
+                <marker date="1511456499489" expanded="true" signature="1641:1650" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -114,11 +123,6 @@
             <path>
               <item name="RoutePlanner" type="b2602c69:ProjectViewProjectNode" />
               <item name="RoutePlanner" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RoutePlanner" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RoutePlanner" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -260,12 +264,12 @@
       <workItem from="1511027872263" duration="2789000" />
       <workItem from="1511261671752" duration="725000" />
       <workItem from="1511262847873" duration="238000" />
-      <workItem from="1511454398739" duration="2040000" />
+      <workItem from="1511454398739" duration="2116000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16094000" />
+    <option name="totallyTimeSpent" value="16170000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -670,16 +674,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/createRoute.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="33" column="8" lean-forward="false" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="8" />
-          <folding>
-            <marker date="1511455146222" expanded="true" signature="1695:1704" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/css/home.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -706,9 +700,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/addAttractions.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="457">
-          <caret line="74" column="13" lean-forward="false" selection-start-line="74" selection-start-column="13" selection-end-line="74" selection-end-column="13" />
+        <state relative-caret-position="287">
+          <caret line="34" column="48" lean-forward="true" selection-start-line="34" selection-start-column="48" selection-end-line="34" selection-end-column="48" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/createRoute.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="33" column="8" lean-forward="false" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="8" />
+          <folding>
+            <marker date="1511456499489" expanded="true" signature="1641:1650" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
