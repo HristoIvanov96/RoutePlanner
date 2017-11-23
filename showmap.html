@@ -33,10 +33,9 @@
           }
 
           function initMap(arr) {
-              var uluru = {lat: 55.8642, lng: -4.2518};
               var map = new google.maps.Map(document.getElementById('map'), {
                   zoom: 14,
-                  center: uluru
+                  center: {lat: 55.8642, lng: -4.2518}
               });
               loadGPXFileIntoGoogleMap(map, "glasgow.gpx", arr);
           }
