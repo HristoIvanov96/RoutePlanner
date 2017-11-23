@@ -11,20 +11,28 @@ h1 {
 	margin-bottom: 20px;
 }
 
-.centerDiv
-	{
-		width: 35%;
-		height:auto;
-		margin:10% 10%;
-		padding: 3% 3%;
-		background-color:#ffd699;
-		opacity: 0.85;
-		border-radius: 12px;
-	}
-	
+.centerDiv{
+	width: 35%;
+	height:auto;
+	margin:10% 10%;
+	padding: 3% 3%;
+	background-color: #fde0da;
+	opacity: 0.85;
+	border-radius: 12px;
+}
+
+.innerDiv{
+	width: 35%;
+	height:auto;
+	padding: 3% 3%;
+	background-color: #fde0da;
+	opacity: 0.85;
+	border-radius: 12px;
+}
+
 input[type=submit] {
     width: 200px;
-    background-color: #ffad33;
+    background-color: #a471bc;
     color: black;
 	font-size: 110%;
 	font-weight: bold;
@@ -36,5 +44,5 @@ input[type=submit] {
 }
 
 input[type=submit]:hover {
-    background-color: #cc7a00;
+    background-color: #ba6d8d;
 }
