@@ -386,12 +386,15 @@ GPXParser.prototype.test = function () {
 
         var i;
         var request = {
-            travelMode: google.maps.TravelMode.WALKING
-        };
-        for (i = 0; i < markers.length; i++) {
+            travelMode: google.maps.TravelMode.WALKING,
+            optimizeWaypoints: true,
 
-            if (i == 0) request.origin = markers[i].getPosition();
-            else if (i == markers.length - 1) request.destination = markers[i].getPosition();
+        };
+
+        for (i = 0; i <= markers.length; i++) {
+
+            if (i == 0) request.origin = markers[0].getPosition();
+            else if (i == markers.length) request.destination = markers[0].getPosition();
             else {
                 if (!request.waypoints) request.waypoints = [];
                 request.waypoints.push({
