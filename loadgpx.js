@@ -340,14 +340,16 @@ GPXParser.prototype.addOurPointsToMap = function(arr) {
 GPXParser.prototype.createRoute = function() {
     var origin = [];
     var destinations = [];
-    var lastlatlng = markers[0].getAttribute("position");
-    var latlng;
-    origin.push(lastlatlng);
+    var latlng = markers[0].getAttribute("position");
+    origin.push(latlng);
 
     for (var i = 1; i < markers.length; i++) {
         latlng = markers[i].getAttribute("position");
         destinations.push(latlng);
+        origin.push(latlng)
     }
+    latlng = markers[0].getAttribute("position");
+    destinations.push(latlng);
 
     var service = new google.maps.DistanceMatrixService();
     service.getDistanceMatrix(
