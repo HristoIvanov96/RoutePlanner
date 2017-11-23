@@ -11,40 +11,41 @@
     <script src= "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/addAttractions.css">
   </head>
-	<body><center>
+	<body>
+    <center>
 	<div class="centerDiv">
 		<h1>Attractions in Glasgow</h1>
 	<div class="innerDiv">
 		<label class="container">Kelvingrove Art Gallery
-			<input type="checkbox" value="0">
+			<input type="checkbox" class="check" name="Kelvingrove Art Gallery" value="0">
 			<span class="checkmark"></span>
 		</label>
 		<label class="container">Riverside Museum
-			<input type="checkbox" value="1">
+			<input type="checkbox" class="check" name="Riverside Museum" value="1">
 			<span class="checkmark"></span>
 		</label>
 		<label class="container">Glasgow Cathedral
-			<input type="checkbox" value="2">
+			<input type="checkbox" class="check" name="Glasgow Cathedral" value="2">
 			<span class="checkmark"></span>
 		</label>
 		<label class="container"> University of Glasgow
-			<input type="checkbox" value="3">
+			<input type="checkbox" class="check" name="University of Glasgow" value="3">
 			<span class="checkmark"></span>
 		</label>
 		<label class="container"> The Lighthouse
-			<input type="checkbox" value="4">
+			<input type="checkbox" class="check" name="The Lighthouse" value="4">
 			<span class="checkmark"></span>
 		</label>
 		<label class="container"> Celtic Park
-			<input type="checkbox" value="5">
+			<input type="checkbox" class="check" name="Celtic Park" value="5">
 			<span class="checkmark"></span>
 		</label>
 		<label class="container"> George Square
-			<input type="checkbox" value="6">
+			<input type="checkbox" class="check" name="George Square" value="6">
 			<span class="checkmark"></span>
 		</label>
 		<label class="container"> Glasgow Green
-			<input type="checkbox" value="7">
+			<input type="checkbox" class="check" name="Glasgow Green" value="7">
 			<span class="checkmark"></span>
 		</label>
 		</div>
@@ -63,15 +64,14 @@
 		  for (var i=0; i<checkboxes.length; i++) {
 			 // And stick the checked ones onto an array...
 			 if (checkboxes[i].checked) {
-				checkboxesChecked.push(checkboxes[i].nextSibling.nodeValue);
+				checkboxesChecked.push(checkboxes[i].name);
 			 }
 		  }
 		url = 'showmap.html?arr=' + encodeURIComponent(checkboxesChecked);
 		document.location.href = url;
 	}
-
 	</script>
 	</div>
-	</center>
+    </center>
   </body>
 </html>
