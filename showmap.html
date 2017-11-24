@@ -35,7 +35,8 @@
               var origin = {lat: 55.8642, lng: -4.2518};
               var map = new google.maps.Map(document.getElementById('map'), {
                   zoom: 14,
-                  center: origin
+                  center: origin,
+                  mapTypeControl: false
               });
               loadGPXFileIntoGoogleMap(map, "glasgow.gpx", arr);
           }
