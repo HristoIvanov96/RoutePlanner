@@ -423,7 +423,7 @@ GPXParser.prototype.createRoute = function() {
     }
 }
 
-GPXParser.prototype.createSchedule = function() {
+GPXParser.prototype.createSchedule = function(legs) {
     if(legs.length == 0){return "Route not found"; }
     document.write(legs[0].getAttribute("from") + ". arrive at: " + "09:00");
     for( var i = 0; i < legs.length; i++) {
