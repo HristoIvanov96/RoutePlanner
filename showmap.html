@@ -1,136 +1,138 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="UTF-8">
-      <script test.js></script>
-      <script src="loadgpx.js"></script>
+    <script test.js></script>
+    <script src="loadgpx.js"></script>
     <script
-      src="https://code.jquery.com/jquery-3.2.1.min.js"
-      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-      crossorigin="anonymous"></script>
-      <script async defer
-              src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJqUQPs65F0LCP71ix5CBKddjegbgtVlI&callback=initMap">
-      </script>
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJqUQPs65F0LCP71ix5CBKddjegbgtVlI&callback=initMap">
+    </script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src= "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-      <script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
 
-          var map;
+        var map;
 
-          window.onload = function () {
-              var url = document.location.href,
-                  params = url.split('?')[1].split('&'),
-                  data = {}, tmp;
-              for (var i = 0, l = params.length; i < l; i++) {
-                  tmp = params[i].split('=');
-                  data = tmp[1];
-              }
-              var data1 = data.split("%2C").join(',');
-              data1 = data1.split("%20").join(" ");
-              data1 = data1.split(",");
-              //document.getElementById('demo').innerHTML = data1;
-              initMap(data1);
+        window.onload = function () {
+            var url = document.location.href,
+                params = url.split('?')[1].split('&'),
+                data = {}, tmp;
+            for (var i = 0, l = params.length; i < l; i++) {
+                tmp = params[i].split('=');
+                data = tmp[1];
+            }
+            var data1 = data.split("%2C").join(',');
+            data1 = data1.split("%20").join(" ");
+            data1 = data1.split(",");
+            //document.getElementById('demo').innerHTML = data1;
+            initMap(data1);
 
-          };
+        };
 
-          function initMap(arr) {
-              var origin = {lat: 55.8642, lng: -4.2518};
-              map = new google.maps.Map(document.getElementById('map'), {
-                  zoom: 14,
-                  center: origin,
-                  mapTypeControl: false
-              });
-              loadGPXFileIntoGoogleMap(map, "glasgow.gpx", arr);
-          }
+        function initMap(arr) {
+            var origin = {lat: 55.8642, lng: -4.2518};
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 14,
+                center: origin,
+                mapTypeControl: false
+            });
+            loadGPXFileIntoGoogleMap(map, "glasgow.gpx", arr);
+        }
 
-          function loadGPXFileIntoGoogleMap(map, filename, arr) {
-              $.ajax({url: filename,
-                  dataType: "xml",
-                  success: function(data) {
-                      var parser = new GPXParser(data, map);
-                      parser.centerAndZoom(data);
-                      parser.addOurPointsToMap(arr);
-                      clearMarkers();
-                      parser.test();
-                      parser.createRoute();
-                      var legs = parser.legs;
-                      document.getElementById('schedule').innerHTML = legs[0].getAttribute('duration');
-                  }
-              });
-          }
+        function loadGPXFileIntoGoogleMap(map, filename, arr) {
+            $.ajax({
+                url: filename,
+                dataType: "xml",
+                success: function (data) {
+                    var parser = new GPXParser(data, map);
+                    parser.centerAndZoom(data);
+                    parser.addOurPointsToMap(arr);
+                    clearMarkers();
+                    parser.test();
+                    parser.createRoute();
+                    var legs = parser.legs;
+                    document.getElementById('schedule').innerHTML = legs[0].getAttribute('duration');
+                }
+            });
+        }
 
-          // Sets the map on all markers in the array.
-          function setMapOnAll(map) {
-              for (var i = 0; i < markers.length; i++) {
-                  markers[i].setMap(map);
-              }
-          }
+        // Sets the map on all markers in the array.
+        function setMapOnAll(map) {
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(map);
+            }
+        }
 
-          // Removes the markers from the map, but keeps them in the array.
-          function clearMarkers() {
-              setMapOnAll(null);
-          }
+        // Removes the markers from the map, but keeps them in the array.
+        function clearMarkers() {
+            setMapOnAll(null);
+        }
 
-          // Shows any markers currently in the array.
-          function showMarkers() {
-              setMapOnAll(map);
-          }
+        // Shows any markers currently in the array.
+        function showMarkers() {
+            setMapOnAll(map);
+        }
+        //          Old Code for menu bar
+        //          $( document ).ready(function() {
+        //              var shown = 0;
+        //              $( ".menu" ).hide();
+        //              $( ".hamburger" ).click(function() {
+        //                  $( ".menu" ).slideToggle( "slow", function() {
+        //                      if(shown == 0){
+        //                          $( ".menu" ).show();
+        //                          shown = 1;
+        //                      }
+        //                      else{
+        //                          $( ".menu" ).hide();
+        //                          shown = 0;
+        //                      }
+        //
+        //                  });
+        //              });
+        //          });
+        //          <!--<button class="menu">Schedule</button>-->
+        /* Set the width of the side navigation to 250px */
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
 
-          $( document ).ready(function() {
-              var shown = 0;
-              $( ".menu" ).hide();
-              $( ".hamburger" ).click(function() {
-                  $( ".menu" ).slideToggle( "slow", function() {
-                      if(shown == 0){
-                          $( ".menu" ).show();
-                          shown = 1;
-                      }
-                      else{
-                          $( ".menu" ).hide();
-                          shown = 0;
-                      }
-
-                  });
-              });
-          });
-          /* Set the width of the side navigation to 250px */
-          function openNav() {
-              document.getElementById("mySidenav").style.width = "250px";
-          }
-
-          /* Set the width of the side navigation to 0 */
-          function closeNav() {
-              document.getElementById("mySidenav").style.width = "0";
-          }
-      </script>
-	<link rel="stylesheet" type="text/css" href="css/showmap.css">
-  </head>
-  <body>
-  <div id="content">
+        /* Set the width of the side navigation to 0 */
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
+    <link rel="stylesheet" type="text/css" href="css/showmap.css">
+</head>
+<body>
+<div id="content">
     <!--<div id="menu">-->
-        <!--<img class="hamburger" src="img/hamburger.png" alt="Hamburger">-->
-        <!--<button class="menu">Schedule</button>-->
+    <!--<img class="hamburger" src="img/hamburger.png" alt="Hamburger">-->
+    <!--<button class="menu">Schedule</button>-->
     <!--</div>-->
 
-      <!-- Use any element to open the sidenav -->
-      <div id="menu">
-          <div class="hamburger" onclick="openNav();">
-              <div class="bar1"></div>
-              <div class="bar2"></div>
-              <div class="bar3"></div>
-          </div>
-          <div id="mySidenav" class="sidenav">
-              <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-              <a href="#">About</a>
-              <a href="#">Services</a>
-              <a href="#">Clients</a>
-              <a href="#">Contact</a>
-          </div>
-          <!--<button class="menu">Schedule</button>-->
-      </div>
-      <div id="map"></div>
-  </div>    
+    <!-- Use any element to open the sidenav -->
+    <div id="menu">
+        <div class="hamburger" onclick="openNav();">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">Clients</a>
+            <a href="#">Contact</a>
+        </div>
+
+    </div>
+    <div id="map"></div>
+</div>
 
 
-  </body>
+</body>
 </html>
