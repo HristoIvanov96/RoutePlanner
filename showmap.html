@@ -50,6 +50,7 @@
                       parser.test();
                       parser.createRoute();
                       var legs = parser.legs;
+                      document.getElementById('schedule').innerHTML = legs[0].getAttribute('duration');
                   }
               })
           }
