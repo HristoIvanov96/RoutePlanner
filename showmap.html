@@ -15,6 +15,8 @@
     <script src= "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
       <script>
 
+          var map;
+
           window.onload = function () {
               var url = document.location.href,
                   params = url.split('?')[1].split('&'),
@@ -33,7 +35,7 @@
 
           function initMap(arr) {
               var origin = {lat: 55.8642, lng: -4.2518};
-              var map = new google.maps.Map(document.getElementById('map'), {
+              map = new google.maps.Map(document.getElementById('map'), {
                   zoom: 14,
                   center: origin,
                   mapTypeControl: false
@@ -48,12 +50,30 @@
                       var parser = new GPXParser(data, map);
                       parser.centerAndZoom(data);
                       parser.addOurPointsToMap(arr);
+                      clearMarkers();
                       parser.test();
                       parser.createRoute();
                       var legs = parser.legs;
                       document.getElementById('schedule').innerHTML = legs[0].getAttribute('duration');
                   }
               });
+          }
+
+          // Sets the map on all markers in the array.
+          function setMapOnAll(map) {
+              for (var i = 0; i < markers.length; i++) {
+                  markers[i].setMap(map);
+              }
+          }
+
+          // Removes the markers from the map, but keeps them in the array.
+          function clearMarkers() {
+              setMapOnAll(null);
+          }
+
+          // Shows any markers currently in the array.
+          function showMarkers() {
+              setMapOnAll(map);
           }
 
           $( document ).ready(function() {
