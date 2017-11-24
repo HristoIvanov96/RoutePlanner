@@ -38,7 +38,6 @@
                   center: origin
               });
               loadGPXFileIntoGoogleMap(map, "glasgow.gpx", arr);
-              var clickHandler = new ClickEventHandler(map, origin);
           }
 
           function loadGPXFileIntoGoogleMap(map, filename, arr) {
@@ -52,14 +51,32 @@
                   }
               });
           }
+
+          $( document ).ready(function() {
+              var shown = 0;
+              $( ".menu" ).hide();
+              $( ".hamburger" ).click(function() {
+                  $( ".menu" ).slideToggle( "slow", function() {
+                      if(shown == 0){
+                          $( ".menu" ).show();
+                          shown = 1;
+                      }
+                      else{
+                          $( ".menu" ).hide();
+                          shown = 0;
+                      }
+
+                  });
+              });
+          });
       </script>
 	<link rel="stylesheet" type="text/css" href="css/showmap.css">
   </head>
   <body>
-        
-	<a href= showmenu.html>
-        <img src="img/hamburger.png" alt="Hamburger" style="width:50px;height:50px;">
-        </a>
+        <div id="menu">
+        <img class="hamburger" src="img/hamburger.png" alt="Hamburger" style="width:50px;height:50px;">
+        <button class="menu">Schedule</button>
+        </div>
 
       <p id="demo"></p>
 
