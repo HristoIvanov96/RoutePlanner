@@ -337,46 +337,7 @@ GPXParser.prototype.addOurPointsToMap = function(arr) {
     }
 }
 
-GPXParser.prototype.createRoute = function() {
-    var origin = [];
-    var destinations = [];
-    var latlng = markers[0].getAttribute("position");
-    origin.push(latlng);
 
-    for (var i = 1; i < markers.length; i++) {
-        latlng = markers[i].getAttribute("position");
-        destinations.push(latlng);
-        origin.push(latlng)
-    }
-    latlng = markers[0].getAttribute("position");
-    destinations.push(latlng);
-
-    var service = new google.maps.DistanceMatrixService();
-    service.getDistanceMatrix(
-        {
-            origins: origin,
-            destinations: destinations,
-            travelMode: 'WALKING'
-        }, callback);
-
-    function callback(response, status) {
-        if (status == 'OK') {
-            var origins = response.originAddresses;
-            var destinations = response.destinationAddresses;
-
-            for (var i = 0; i < origins.length; i++) {
-                var results = response.rows[i].elements;
-                for (var j = 0; j < results.length; j++) {
-                    var element = results[j];
-                    var distance = element.distance.text;
-                    var duration = element.duration.text;
-                    var from = origins[i];
-                    var to = destinations[j];
-                }
-            }
-        }
-    }
-}
 
 GPXParser.prototype.test = function () {
     var directionsDisplay = new google.maps.DirectionsRenderer();
@@ -415,5 +376,57 @@ GPXParser.prototype.addRoutepointsToMap = function() {
     var routes = this.xmlDoc.documentElement.getElementsByTagName("rte");
     for(var i = 0; i < routes.length; i++) {
         this.addRouteToMap(routes[i], this.trackcolour, this.trackwidth);
+    }
+}
+
+GPXParser.prototype.createRoute = function() {
+    var origin = [];
+    var destinations = [];
+    var latlng = markers[0].getAttribute("position");
+    origin.push(latlng);
+    var legs = [];
+
+    for (var i = 1; i < markers.length; i++) {
+        latlng = markers[i].getAttribute("position");
+        destinations.push(latlng);
+        origin.push(latlng)
+    }
+    latlng = markers[0].getAttribute("position");
+    destinations.push(latlng);
+
+    var service = new google.maps.DistanceMatrixService();
+    service.getDistanceMatrix(
+        {
+            origins: origin,
+            destinations: destinations,
+            travelMode: 'WALKING'
+        }, callback);
+
+    function callback(response, status) {
+        if (status == 'OK') {
+            var origins = response.originAddresses;
+            var destinations = response.destinationAddresses;
+
+            for (var i = 0; i < origins.length; i++) {
+                var results = response.rows[i].elements;
+                for (var j = 0; j < results.length; j++) {
+                    var element = results[j];
+                    var distance = element.distance.text;
+                    var duration = element.duration.text;
+                    var from = origins[i];
+                    var to = destinations[j];
+                    var leg = { duration: this.duration, from: this.from, to: this.to }
+                    legs.push(leg);
+                }
+            }
+        }
+    }
+}
+
+GPXParser.prototype.createSchedule = function(legs) {
+    if(legs.length == 0){return "Route not found"; }
+    document.write(legs[0].getAttribute("from") + ". arrive at: " + "09:00");
+    for( var i = 0; i < legs.length; i++) {
+          document.write(legs[i].getAttribute("to") + ". arrive at: " + legs[i].getAttribute("duration"));
     }
 }

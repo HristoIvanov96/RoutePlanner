@@ -22,7 +22,7 @@ h1 {
 }
 
 .innerDiv{
-	width: 35%;
+	width: 255px;
 	height:auto;
 	padding: 3% 3%;
 	background-color: #fde0da;
@@ -61,12 +61,12 @@ h1 {
     background-color: #a471bc;
 }
 
-/* On mouse-over, add a grey background color */
+/* On mouse-over, add a pink background color */
 .container:hover input ~ .checkmark {
     background-color: #ba6d8d;
 }
 
-/* When the checkbox is checked, add a blue background */
+/* When the checkbox is checked, add a purple background */
 .container input:checked ~ .checkmark {
     background-color: #a471bc;
 }

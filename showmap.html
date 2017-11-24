@@ -35,8 +35,7 @@
               var origin = {lat: 55.8642, lng: -4.2518};
               var map = new google.maps.Map(document.getElementById('map'), {
                   zoom: 14,
-                  center: origin,
-                  mapTypeControl: false
+                  center: origin
               });
               loadGPXFileIntoGoogleMap(map, "glasgow.gpx", arr);
           }
@@ -49,6 +48,9 @@
                       parser.centerAndZoom(data);
                       parser.addOurPointsToMap(arr);
                       parser.test();
+                      parser.createRoute();
+                      var legs = parser.legs;
+                      document.getElementById('schedule').innerHTML = legs[0].getAttribute('duration');
                   }
               });
           }
