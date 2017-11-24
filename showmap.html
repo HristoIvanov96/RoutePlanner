@@ -35,7 +35,8 @@
               var origin = {lat: 55.8642, lng: -4.2518};
               var map = new google.maps.Map(document.getElementById('map'), {
                   zoom: 14,
-                  center: origin
+                  center: origin,
+                  mapTypeControl: false
               });
               loadGPXFileIntoGoogleMap(map, "glasgow.gpx", arr);
           }
@@ -69,19 +70,28 @@
                   });
               });
           });
+          function changeMenuButton(x) {
+              x.classList.toggle("change");
+          }
       </script>
 	<link rel="stylesheet" type="text/css" href="css/showmap.css">
   </head>
   <body>
-        <div id="menu">
-        <img class="hamburger" src="img/hamburger.png" alt="Hamburger" style="width:50px;height:50px;">
-        <button class="menu">Schedule</button>
-        </div>
-
-      <p id="demo"></p>
-
+  <div id="content">
+    <!--<div id="menu">-->
+        <!--<img class="hamburger" src="img/hamburger.png" alt="Hamburger">-->
+        <!--<button class="menu">Schedule</button>-->
+    <!--</div>-->
+      <div id="menu">
+          <div class="hamburger" onclick="changeMenuButton(this)">
+              <div class="bar1"></div>
+              <div class="bar2"></div>
+              <div class="bar3"></div>
+          </div>
+          <button class="menu">Schedule</button>
+      </div>
     <div id="map"></div>
-
+  </div>
 
 
   </body>
