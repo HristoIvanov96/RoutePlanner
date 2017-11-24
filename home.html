@@ -14,13 +14,14 @@
       <script src="loadgpx.js"></script>
   </head>
   <body>
-
+  <div id="content">
     <div id="map"></div>
     <div id="button">
-        <form action="createRoute.html">
-            <input type="submit" value="Create a route" />
-        </form>
+      <form action="createRoute.html">
+        <input type="submit" value="Create a route" />
+      </form>
     </div>
+  </div>
     <script>
         function loadGPXFileIntoGoogleMap(map, filename) {
             $.ajax({url: filename,
