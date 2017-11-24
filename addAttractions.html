@@ -48,17 +48,16 @@
 			<span class="checkmark"></span>
 		</label>
 		</div>
-	
-	<form onclick="getCheckedBoxes();return false;"> 
+
+	<form onclick="getCheckedBoxes();return false;">
 		<input  type="submit" id = "genroute" value="Generate Route" />
 	</form>
-	
+
 	<script>
 	function getCheckedBoxes() {
-			
 		  var checkboxes = document.getElementsByClassName('check');
 		  var checkboxesChecked = [];
-		  
+
 		  // loop over them all
 		  for (var i=0; i<checkboxes.length; i++) {
 			 // And stick the checked ones onto an array...
@@ -66,6 +65,7 @@
 				checkboxesChecked.push(checkboxes[i].name);
 			 }
 		  }
+
 		url = 'showmap.html?arr=' + encodeURIComponent(checkboxesChecked);
 		document.location.href = url;
 	}
