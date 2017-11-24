@@ -48,6 +48,9 @@
                       parser.centerAndZoom(data);
                       parser.addOurPointsToMap(arr);
                       parser.test();
+                      parser.createRoute();
+                      var legs = parser.legs;
+                      document.getElementById('schedule').innerHTML = legs;
                   }
               });
           }
@@ -75,10 +78,11 @@
   <body>
         <div id="menu">
         <img class="hamburger" src="img/hamburger.png" alt="Hamburger" style="width:50px;height:50px;">
-        <button class="menu">Schedule</button>
+        <button onclick="parser.legs">Schedule</button>
         </div>
 
       <p id="demo"></p>
+      <p id="schedule"></p>
 
     <div id="map"></div>
 
