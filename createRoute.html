@@ -1,57 +1,56 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="UTF-8">
 
     <script
-      src="https://code.jquery.com/jquery-3.2.1.min.js"
-      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-      crossorigin="anonymous"></script>
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src= "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="css/createRoute.css">
-  </head>
-	<body> <center>
-	<div class="centerDiv">
-		<h1> Plan Your Journey </h1>
-	<div class="innerDiv">
-		<label class="container">City    
-			<select >
-				<option value="Glasgow">Glasgow</option>
-			</select>
-		</label>
-	</div>
-	<br>
-	<div style="margin: auto;text-align: center;" id="start">
-	<h3 style="display: inline;"> Start time </h3>
-	<input id="startTime" type="time">
-	</div>
-	<br>
-	<div style="margin: auto;text-align: center;" id="end">
-	<h3 style="display: inline;"> End time </h3>
-	<input id="endTime" type="time">
-	</div>
-	<br>
-	<div style="margin: auto;text-align: center;" id="pace">
-	<h3 style="display: inline;"> Pace </h3>
-	<select >
-		<option value="Casual">Casual</option>
-		<option value="Quick">Quick</option>
-	</select>
-	</div>
-	<br>
-	<div style="margin: auto;text-align: center;" id="travel">
-	<h3 style="display: inline;"> Travel </h3>
-	<select >
-		<option value="Cycling">Cycling</option>
-		<option value="Walking">Walking</option>
-	</select>
-	</div>
-	<br>
-	<form style="text-align: center;" action="addAttractions.html">
-    <input type="submit" value="Add Attractions" />
-	</form>
-	</div>
-	</center>
-  </body>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/createRoute.css">
+</head>
+<body>
+<div class="centerDiv">
+    <h1> Plan Your Journey </h1>
+    <form style="text-align: center;" action="addAttractions.html" method="get">
+        <div class="innerDiv">
+            <label class="container">City
+                <select>
+                    <option value="Glasgow">Glasgow</option>
+                </select>
+            </label>
+        </div>
+        <br>
+        <div id="start">
+            <h3 > Start time </h3>
+            <input id="startTime" type="time">
+        </div>
+        <br>
+        <div  id="end">
+            <h3 > End time </h3>
+            <input id="endTime" type="time">
+        </div>
+        <br>
+        <div  id="pace">
+            <h3 > Pace </h3>
+            <select>
+                <option value="Casual">Casual</option>
+                <option value="Quick">Quick</option>
+            </select>
+        </div>
+        <br>
+        <div id="travel">
+            <h3 > Travel </h3>
+            <select>
+                <option value="Cycling">Cycling</option>
+                <option value="Walking">Walking</option>
+            </select>
+        </div>
+        <br>
+        <input type="submit" value="Add Attractions"/>
+    </form>
+</div>
+</body>
 </html>
