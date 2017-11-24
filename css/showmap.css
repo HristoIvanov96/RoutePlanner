@@ -20,8 +20,13 @@ html, body {
 }
 
 .hamburger {
+    margin-top: 55px;
     width: 50px;
     height: 50px;
+}
+
+.menu {
+    margin-top: 55px;
 }
 
 #menu {
