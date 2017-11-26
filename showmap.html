@@ -52,10 +52,20 @@
                     parser.centerAndZoom(data);
                     parser.addOurPointsToMap(arr);
                     clearMarkers();
-                    parser.test();
-                    parser.createRoute();
-                    var legs = parser.legs;
-                    document.getElementById('schedule').innerHTML = legs[0].getAttribute('duration');
+                    parser.drawRoute();
+                    var legs = parser.createRoute();
+                    //need timeout because the createRoute function is slow for some reason
+                    //for now just printing the schedule in an unordered list at the bottom of the page
+                    //TODO pass it to the schedule page
+                    //TODO need to set a direction for the route
+                    setTimeout(function() {
+                        for(var i = 0; i < legs.length; i++){
+                            var node = document.createElement("LI");                 // Create a <li> node
+                            var textnode = document.createTextNode("FROM: " + legs[i].from  + " TO: " + legs[i].to  + " TAKES: " + legs[i].duration.toString());         // Create a text node
+                            node.appendChild(textnode);                              // Append the text to <li>
+                            document.getElementById("schedule").appendChild(node);
+                        }
+                    }, 300);
                 }
             });
         }
@@ -132,7 +142,6 @@
     </div>
     <div id="map"></div>
 </div>
-
-
+<ul id="schedule"></ul>
 </body>
 </html>

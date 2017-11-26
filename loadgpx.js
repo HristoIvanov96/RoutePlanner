@@ -52,7 +52,7 @@ function GPXParser(xmlDoc, map) {
     this.map = map;
     this.trackcolour = "#ff00ff"; // red
     this.trackwidth = 5;
-    this.mintrackpointdelta = 0.0001
+    this.mintrackpointdelta = 0.0001;
 }
 
 // Set the colour of the track line segements.
@@ -339,7 +339,7 @@ GPXParser.prototype.addOurPointsToMap = function(arr) {
 
 
 
-GPXParser.prototype.test = function () {
+GPXParser.prototype.drawRoute = function () {
     var directionsDisplay = new google.maps.DirectionsRenderer();
     var directionsService = new google.maps.DirectionsService();
     map = this.map;
@@ -369,7 +369,7 @@ GPXParser.prototype.test = function () {
             }
         });
     }
-}
+};
 
 
 GPXParser.prototype.addRoutepointsToMap = function() {
@@ -377,21 +377,23 @@ GPXParser.prototype.addRoutepointsToMap = function() {
     for(var i = 0; i < routes.length; i++) {
         this.addRouteToMap(routes[i], this.trackcolour, this.trackwidth);
     }
-}
+};
 
 GPXParser.prototype.createRoute = function() {
     var origin = [];
     var destinations = [];
-    var latlng = markers[0].getAttribute("position");
+    //The first two markers are the same(Glasgow central hotel) for some reason
+    //So that's why we skip the first
+    var latlng = markers[1].position;
     origin.push(latlng);
     var legs = [];
 
-    for (var i = 1; i < markers.length; i++) {
-        latlng = markers[i].getAttribute("position");
+    for (var i = 2; i < markers.length; i++) {
+        latlng = markers[i].position;
         destinations.push(latlng);
         origin.push(latlng)
     }
-    latlng = markers[0].getAttribute("position");
+    latlng = markers[0].position;
     destinations.push(latlng);
 
     var service = new google.maps.DistanceMatrixService();
@@ -406,22 +408,25 @@ GPXParser.prototype.createRoute = function() {
         if (status == 'OK') {
             var origins = response.originAddresses;
             var destinations = response.destinationAddresses;
-
             for (var i = 0; i < origins.length; i++) {
                 var results = response.rows[i].elements;
+
                 for (var j = 0; j < results.length; j++) {
                     var element = results[j];
+                    //fix a bug with duplicate markers
+                    if(element.distance.text == "1 m")continue;
                     var distance = element.distance.text;
-                    var duration = element.duration.text;
-                    var from = origins[i];
-                    var to = destinations[j];
-                    var leg = { duration: this.duration, from: this.from, to: this.to }
-                    legs.push(leg);
+                    //split the duration, so that we can have - ["24", "mins"]
+                    var duration1 = element.duration.text.split(" ");
+                    var from1 = origins[i];
+                    var to1 = destinations[j];
+                    legs.push({duration:duration1, from:from1, to:to1});
                 }
             }
         }
     }
-}
+    return legs;
+};
 
 GPXParser.prototype.createSchedule = function(legs) {
     if(legs.length == 0){return "Route not found"; }
