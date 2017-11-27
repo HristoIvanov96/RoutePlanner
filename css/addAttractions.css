@@ -6,16 +6,21 @@ html {
 
 h1 {
 	font-family: "Times New Roman", Times, serif;
-	font-size: 55px;
+	font-size: 42px;
 	color: black;
-	margin-bottom: 20px;
 }
 
+h2 {
+	font-family: "Times New Roman", Times, serif;
+	font-size: 23px;
+	color: black;
+	
+}
 .centerDiv{
-	width: 35%;
+	width: 29%;
 	height:auto;
 	margin:10% 10%;
-	padding: 3% 3%;
+	padding: 10px 10px;
 	background-color: #fde0da;
 	opacity: 0.85;
 	border-radius: 12px;
@@ -24,7 +29,6 @@ h1 {
 .innerDiv{
 	width: 255px;
 	height:auto;
-	padding: 3% 3%;
 	background-color: #fde0da;
 	opacity: 0.85;
 	border-radius: 12px;

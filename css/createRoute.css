@@ -10,14 +10,15 @@ body {
 
 h1 {
     font-family: "Times New Roman", Times, serif;
-    font-size: 55px;
+    font-size: 48px;
     /*color: black;*/
     margin-bottom: 20px;
+	text-align: center;
 }
 
 div {
     margin: auto;
-    text-align: center;
+    text-align: left;
 }
 
 h3 {
@@ -25,22 +26,27 @@ h3 {
 }
 
 .centerDiv {
-    width: 35%;
+    width: 28%;
     height: auto;
     margin: 10% auto;
-    padding: 3% 3%;
-    background-color: #fde0da;
-    opacity: 0.85;
-    border-radius: 12px;
+	padding: 10px 10px;
+	background-color: #fde0da;
+	opacity: 0.90;
+	border-radius: 12px;
 }
 
 .innerDiv {
-    width: 35%;
+    width: 42%;
     height: auto;
-    padding: 3% 3%;
-    background-color: #fde0da;
-    opacity: 0.85;
-    border-radius: 12px;
+	text-align: left;
+	background-color: #fde0da;
+	border-radius: 12px;
+	font-size: 22px;
+	position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 input[type=submit] {
