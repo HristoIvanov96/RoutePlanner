@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script>
+    window.onload = function () {
+        var url = document.location.href;
+        var params = url.split('=')[1];
+        var schedules = params.split("%7C%7C");
+        for(var i=0; i<schedules.length; i++){
+            schedules[i] = schedules[i].split("%2C").join(" ");
+            schedules[i] = schedules[i].split("%20").join(" ");
+        }
+        schedules[schedules.length-1] = schedules[schedules.length-1].split("%7C")[0];
+        for(var i = 0; i<schedules.length; i++){
+            var node = document.createElement("LI");                 // Create a <li> node
+            var textnode = document.createTextNode(schedules[i]);         // Create a text node
+            node.appendChild(textnode);                              // Append the text to <li>
+            document.getElementById("schedule").appendChild(node);
+        }
+
+    };
+    </script>
+</head>
+<body>
+<ul id="schedule"></ul>
+</body>
+</html>

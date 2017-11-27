@@ -42,7 +42,7 @@
             });
             loadGPXFileIntoGoogleMap(map, "glasgow.gpx", arr);
         }
-
+        var schedules = [];
         function loadGPXFileIntoGoogleMap(map, filename, arr) {
             $.ajax({
                 url: filename,
@@ -55,23 +55,39 @@
                     parser.drawRoute();
                     var legs = parser.createRoute();
                     //need timeout because the createRoute function is slow for some reason
-                    //for now just printing a schedule in an unordered list at the bottom of the page
-                    //sometimes need to refresh the page for the list to show TODO need to fix that
-                    //TODO pass it to the schedule page
-                    //TODO need to set a direction for the route
+                    //sometimes need to refresh the page for the list to show
                     setTimeout(function() {
-                        //console.log(legs);
+                        //just to print all the routs for debugging
                         for(var i = 0; i < legs.length; i++){
                             var node = document.createElement("LI");                 // Create a <li> node
                             var textnode = document.createTextNode("FROM: " + legs[i].from  + " TO: " + legs[i].to  + " TAKES: " + legs[i].duration.toString());         // Create a text node
                             node.appendChild(textnode);                              // Append the text to <li>
                             document.getElementById("schedule").appendChild(node);
                         }
-                    }, 300);
+                        var numberOfSchedules = 0;
+                        //number of legs per number of sights
+                        var numberOfLegs = [0,2,6,12,20,30,42,56,72,90,110];
+                        for(var j=0; j<numberOfLegs.length;j++){
+                            if(numberOfLegs[j] == legs.length){
+                                numberOfSchedules = j;
+                            }
+                        }
+                        var n = 0;
+                        schedules.push(legs[0].from + "--" + legs[0].to + " " + legs[0].duration.toString() + "|");
+                        for(var i=0; i<numberOfSchedules-1;i++){
+                            var index = n+numberOfSchedules;
+                            schedules.push(legs[index].from + "--" + legs[index].to + " " + legs[index].duration.toString() + "|");
+                            n += numberOfSchedules+1;
+                        }
+                        schedules.push(legs[legs.length-1].from + "--" + legs[legs.length-1].to + " " + legs[legs.length-1].duration.toString() + "|");
+                    }, 1000);
                 }
             });
         }
-
+        function getSchedule(){
+            url = 'schedule.html?arr=' + encodeURIComponent(schedules.join("|"));
+            document.location.href = url;
+        }
         // Sets the map on all markers in the array.
         function setMapOnAll(map) {
             for (var i = 0; i < markers.length; i++) {
@@ -135,10 +151,7 @@
         </div>
         <div id="mySidenav" class="sidenav">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <a href="#">About</a>
-            <a href="#">Services</a>
-            <a href="#">Clients</a>
-            <a href="#">Contact</a>
+            <a onclick="getSchedule();">Schedule</a>
         </div>
 
     </div>
