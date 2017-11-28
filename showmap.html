@@ -52,8 +52,8 @@
                     parser.centerAndZoom(data);
                     parser.addOurPointsToMap(arr);
                     clearMarkers();
-                    parser.drawRoute();
-                    var legs = parser.createRoute();
+                    var legs = parser.drawRoute();
+                    //var legs = parser.createRoute();
                     //need timeout because the createRoute function is slow for some reason
                     //sometimes need to refresh the page for the list to show
                     setTimeout(function() {

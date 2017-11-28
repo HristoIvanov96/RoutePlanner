@@ -368,7 +368,57 @@ GPXParser.prototype.drawRoute = function () {
                 directionsDisplay.setDirections(result);
             }
         });
+        }
+
+    var origin = [];
+    var destinations = [];
+    //The first two markers are the same(Glasgow central hotel) for some reason
+    //So that's why we skip the first
+    var latlng = request.origin;
+    origin.push(latlng);
+    var legs = [];
+
+    for (var i = 0; i < request.waypoints.length; i++) {
+        latlng = request.waypoints[i].location;
+        destinations.push(latlng);
+        origin.push(latlng)
     }
+    latlng = request.destination;
+    destinations.push(latlng);
+
+    var service = new google.maps.DistanceMatrixService();
+    service.getDistanceMatrix(
+        {
+            origins: origin,
+            destinations: destinations,
+            travelMode: 'WALKING'
+        }, callback);
+
+    function callback(response, status) {
+        if (status == 'OK') {
+            var origins = response.originAddresses;
+            var destinations = response.destinationAddresses;
+            for (var i = 0; i < origins.length; i++) {
+                var results = response.rows[i].elements;
+
+                for (var j = 0; j < results.length; j++) {
+                    if(j != i) continue;
+                    var element = results[j];
+                    //fix a bug with duplicate markers
+                    if(element.distance.text == "1 m")continue;
+                    var distance = element.distance.text;
+                    //split the duration, so that we can have - ["24", "mins"]
+                    //var duration1 = element.duration.text.split(" ");
+                    var duration1 = element.duration.text;
+                    var from1 = origins[i];
+                    var to1 = destinations[j];
+                    legs.push({duration:duration1, from:from1, to:to1});
+                }
+            }
+        }
+    }
+    return legs;
+
 };
 
 
@@ -401,7 +451,7 @@ GPXParser.prototype.createRoute = function() {
         {
             origins: origin,
             destinations: destinations,
-            travelMode: 'WALKING'
+            travelMode: 'BICYCLING'
         }, callback);
 
     function callback(response, status) {
