@@ -417,7 +417,8 @@ GPXParser.prototype.createRoute = function() {
                     if(element.distance.text == "1 m")continue;
                     var distance = element.distance.text;
                     //split the duration, so that we can have - ["24", "mins"]
-                    var duration1 = element.duration.text.split(" ");
+                    //var duration1 = element.duration.text.split(" ");
+                    var duration1 = element.duration.text;
                     var from1 = origins[i];
                     var to1 = destinations[j];
                     legs.push({duration:duration1, from:from1, to:to1});

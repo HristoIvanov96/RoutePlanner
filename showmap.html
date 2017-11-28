@@ -58,12 +58,12 @@
                     //sometimes need to refresh the page for the list to show
                     setTimeout(function() {
                         //just to print all the routs for debugging
-                        /*for(var i = 0; i < legs.length; i++){
+                        for(var i = 0; i < legs.length; i++){
                             var node = document.createElement("LI");                 // Create a <li> node
                             var textnode = document.createTextNode("FROM: " + legs[i].from  + " TO: " + legs[i].to  + " TAKES: " + legs[i].duration.toString());         // Create a text node
                             node.appendChild(textnode);                              // Append the text to <li>
                             document.getElementById("schedule").appendChild(node);
-                        }*/
+                        }
                         var numberOfSchedules = 0;
                         //number of legs per number of sights
                         var numberOfLegs = [0,2,6,12,20,30,42,56,72,90,110];
@@ -81,6 +81,22 @@
                         }
                         schedules.push(legs[legs.length-1].from + " --- " + legs[legs.length-1].to + " takes " + legs[legs.length-1].duration.toString() + "|");
                     }, 1000);
+                    /*var schedules;
+                    schedules.push(legs[0].from + "09:00" + "09:00");
+                    time = 540;
+                    for(var i = 0; i<legs.length; i++){
+                        time = time + (legs[i].duration*60)
+                        schedules.push(legs[i].to + (time/60) + (time + 30))
+                        time = time + 30;
+                    }
+                    document.getElementById('schedule').innerHTML = "test";
+                    for(var i = 0; i<schedules.length; i++){
+                        var node = document.createElement("LI");                 // Create a <li> node
+                        var textnode = document.createTextNode(schedules[i]);         // Create a text node
+                        node.appendChild(textnode);                              // Append the text to <li>
+                        document.getElementById('schedule').appendChild(node);
+                    }
+                    */
                 }
             });
         }
@@ -151,12 +167,13 @@
         </div>
         <div id="mySidenav" class="sidenav">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <p>Location        Arrival Time           Departure Time</p>
+            <ul id="schedule"></ul>
             <a onclick="getSchedule();">Schedule</a>
         </div>
 
     </div>
     <div id="map"></div>
 </div>
-<ul id="schedule"></ul>
 </body>
 </html>
