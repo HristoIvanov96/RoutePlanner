@@ -410,7 +410,13 @@ GPXParser.prototype.drawRoute = function () {
                     //split the duration, so that we can have - ["24", "mins"]
                     //var duration1 = element.duration.text.split(" ");
                     var duration1 = element.duration.text;
+                    if(origins[i].trim() === "Glasgow, UK"){
+                        origins[i] = "Grand Central Hotel";
+                    }
                     var from1 = origins[i];
+                    if(destinations[i].trim() === "Glasgow, UK"){
+                        destinations[i] = "Grand Central Hotel";
+                    }
                     var to1 = destinations[j];
                     legs.push({duration:duration1, from:from1, to:to1});
                 }
