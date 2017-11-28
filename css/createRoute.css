@@ -1,7 +1,13 @@
+* {
+    box-sizing: border-box;
+}
+
 html {
-    background-image: url('../img/background.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
+	background-image: url('../img/Cityscape.jpeg');
+	background-repeat:no-repeat;
+	background-size:cover;
+	background-attachment: fixed;
+    background-position: center;
 }
 
 body {
@@ -9,11 +15,9 @@ body {
 }
 
 h1 {
-    font-family: "Times New Roman", Times, serif;
-    font-size: 48px;
-    /*color: black;*/
+    font-size: 42px;
     margin-bottom: 20px;
-	text-align: center;
+    text-align: center;
 }
 
 div {
@@ -21,47 +25,52 @@ div {
     text-align: left;
 }
 
-h3 {
-    display: inline;
+select{
+    border: 1px solid #68caf1;
+    background-color: #c9f0ff;
 }
 
-.centerDiv {
-    width: 28%;
-    height: auto;
-    margin: 10% auto;
+input{
+    border: 1px solid #68caf1;
+    background-color: #c9f0ff;
+}
+.centerDiv{
+    font-family: "Helvetica";
+    position: absolute;
+    top: -15%;
+    left: 25%;
+	width: 29%;
+	height:auto;
+	margin:10% 10%;
 	padding: 10px 10px;
-	background-color: #fde0da;
-	opacity: 0.90;
+	background-color: white;
+	opacity: 0.85;
 	border-radius: 12px;
 }
 
 .innerDiv {
-    width: 42%;
+    width: 200px;
     height: auto;
 	text-align: left;
-	background-color: #fde0da;
-	border-radius: 12px;
+	background-color: white;
 	font-size: 22px;
 	position: relative;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
 input[type=submit] {
     width: 200px;
-    background-color: #a471bc;
+    background-color: #c9f0ff;
     color: black;
-    font-size: 110%;
-    font-weight: bold;
+	font-size: 130%;
+	font-weight: bold;
     padding: 12px 20px;
     margin: 5% 0;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    border: 1px solid #68caf1;
 }
 
 input[type=submit]:hover {
-    background-color: #ba6d8d;
+    background-color: #68caf1;
 }

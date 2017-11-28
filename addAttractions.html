@@ -11,7 +11,7 @@
 	<link rel="stylesheet" type="text/css" href="css/addAttractions.css">
   </head>
 	<body>
-    <center>
+	<center>
 	<div class="centerDiv">
 		<h1> Attractions in Glasgow</h1>
 		<h2>Choose the attraction(s) you'd like to visit:</h2>
@@ -49,11 +49,12 @@
 			<span class="checkmark"></span>
 		</label>
 		</div>
-
-	<form onclick="getCheckedBoxes();return false;">
-		<input  type="submit" id = "genroute" value="Generate Route" />
-	</form>
-
+		<button onclick="goBack()">Back
+			<input  type="submit" id = "goback" value="Back" />
+		</button>
+		<form onclick="getCheckedBoxes();return false;">
+			<input  type="submit" id = "genroute" value="Generate Route" />
+		</form>
 	<script>
 	function getCheckedBoxes() {
 		  var checkboxes = document.getElementsByClassName('check');
@@ -72,6 +73,6 @@
 	}
 	</script>
 	</div>
-    </center>
+	</center>
   </body>
 </html>
