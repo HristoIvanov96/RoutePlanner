@@ -27,12 +27,12 @@ div {
 
 select{
     border: 1px solid #68caf1;
-    background-color: #c9f0ff;
+    background-color: white;
 }
 
 input{
     border: 1px solid #68caf1;
-    background-color: #c9f0ff;
+    background-color: white;
 }
 .centerDiv{
     font-family: "Helvetica";

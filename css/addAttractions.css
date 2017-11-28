@@ -138,21 +138,3 @@ button input {
     position: absolute;
     opacity: 0;
 }
-
-input[type=submit] {
-    width: 200px;
-    background-color: #c9f0ff;
-    color: black;
-	font-size: 130%;
-	font-weight: bold;
-    padding: 12px 20px;
-    margin: 5% 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    border: 1px solid #68caf1;
-}
-
-input[type=submit]:hover {
-    background-color: #68caf1;
-}

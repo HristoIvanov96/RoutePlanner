@@ -1,56 +1,47 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
+<head>
+	<meta charset="UTF-8">
 
-    <script
-      src="https://code.jquery.com/jquery-3.2.1.min.js"
-      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-      crossorigin="anonymous"></script>
-    <script src= "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="css/editRoute.css">
-  </head>
-  <body> <center>
-	<div class="centerDiv">
-	<h1> Edit Your Route </h1>
-	
-	<div style="margin: auto;text-align: center;" id="City">
-	<h3 style="display: inline;"> City </h3>
-	<select >
-		<option value="Glasgow"> Glasgow</option>
-	</select>
+	<script
+			src="https://code.jquery.com/jquery-3.2.1.min.js"
+			integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+			crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/createRoute.css">
+</head>
+<body>
+<div class="centerDiv">
+	<h1> Edit Your Journey </h1>
+	<div class="innerDiv">
+		<form action="addAttractions.html" method="get">
+			City &emsp;&nbsp;&nbsp;
+
+			<select >
+				<option value="Glasgow">Glasgow</option>
+			</select>
+			<br>
+			<br>
+			Start time
+			<input type="time">
+			<br>
+			<br>
+			Pace &emsp;&nbsp;&nbsp;&nbsp;
+			<select>
+				<option value="Casual">Casual</option>
+				<option value="Quick">Quick</option>
+			</select>
+			<br>
+			<br>
+			Travel &emsp;
+			<select>
+				<option value="Cycling">Cycling</option>
+				<option value="Walking">Walking</option>
+			</select>
 	</div>
-	
-	<div style="margin: auto;text-align: center;" id="start">
-	<h3 style="display: inline;"> Start time</h3>
-	<input id="startTime" type="time">
-	</div>
-	
-	<div style="margin: auto;text-align: center;" id="end">
-	<h3 style="display: inline;"> End time</h3>
-	<input id="endTime" type="time">
-	</div>
-	
-	<div style="margin: auto;text-align: center;" id="pace">
-	<h3 style="display: inline;"> Pace </h3>
-	<select >
-		<option value="Casual">Casual</option>
-		<option value="Quick">Quick</option>
-	</select>
-	</div>
-	
-	<div style="margin: auto;text-align: center;" id="travel">
-	<h3 style="display: inline;"> Travel </h3>
-	<select >
-		<option value="Cycling">Cycling</option>
-		<option value="Walking">Walking</option>
-	</select>
-	</div>
-	
-	<form style="text-align: center;" action="addAttractions.html">
-    <input type="submit" value="Add attractions" />
+	<center> <input type="submit" value="Add Attractions"/></center>
 	</form>
-	</div>
-	</center>
-  </body>
+</div>
+</body>
 </html>

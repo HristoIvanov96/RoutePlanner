@@ -49,12 +49,14 @@
 			<span class="checkmark"></span>
 		</label>
 		</div>
+		<!--genroute button working, back button not so much-->
 		<button onclick="goBack()">Back
 			<input  type="submit" id = "goback" value="Back" />
 		</button>
-		<form onclick="getCheckedBoxes();return false;">
-			<input  type="submit" id = "genroute" value="Generate Route" />
-		</form>
+		&emsp;&nbsp;
+		<button onclick="getCheckedBoxes();return false;">Generate Route
+		<input  type="submit" id = "genroute" value="Generate Route" />
+	</button>
 	<script>
 	function getCheckedBoxes() {
 		  var checkboxes = document.getElementsByClassName('check');
@@ -71,6 +73,7 @@
 		url = 'showmap.html?arr=' + encodeURIComponent(checkboxesChecked);
 		document.location.href = url;
 	}
+
 	</script>
 	</div>
 	</center>
