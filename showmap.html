@@ -16,7 +16,7 @@
     <script>
 
         var map;
-
+        //var schedules = [];
         window.onload = function () {
             var url = document.location.href,
                 params = url.split('?')[1].split('&'),
@@ -28,7 +28,6 @@
             var data1 = data.split("%2C").join(',');
             data1 = data1.split("%20").join(" ");
             data1 = data1.split(",");
-            //document.getElementById('demo').innerHTML = data1;
             initMap(data1);
 
         };
@@ -42,7 +41,7 @@
             });
             loadGPXFileIntoGoogleMap(map, "glasgow.gpx", arr);
         }
-        var schedules = [];
+
         function loadGPXFileIntoGoogleMap(map, filename, arr) {
             $.ajax({
                 url: filename,
@@ -57,29 +56,22 @@
                     //need timeout because the createRoute function is slow for some reason
                     //sometimes need to refresh the page for the list to show
                     setTimeout(function() {
-                        //just to print all the routs for debugging
                         for(var i = 0; i < legs.length; i++){
+                            var node = document.createElement("LI");
+                            var textnode = document.createTextNode("FROM: " + legs[i].from);
+                            node.appendChild(textnode);
+                            document.getElementById("schedule").appendChild(node);
                             var node = document.createElement("LI");                 // Create a <li> node
-                            var textnode = document.createTextNode("FROM: " + legs[i].from  + " TO: " + legs[i].to  + " TAKES: " + legs[i].duration.toString());         // Create a text node
+                            var textnode = document.createTextNode("TO: " + legs[i].to);         // Create a text node
                             node.appendChild(textnode);                              // Append the text to <li>
                             document.getElementById("schedule").appendChild(node);
+                            var node = document.createElement("LI");                 // Create a <li> node
+                            var textnode = document.createTextNode("TAKES: " + legs[i].duration.toString());         // Create a text node
+                            node.appendChild(textnode);                              // Append the text to <li>
+                            document.getElementById("schedule").appendChild(node);
+                            var br = document.createElement("br");
+                            document.getElementById("schedule").appendChild(br);
                         }
-                        var numberOfSchedules = 0;
-                        //number of legs per number of sights
-                        var numberOfLegs = [0,2,6,12,20,30,42,56,72,90,110];
-                        for(var j=0; j<numberOfLegs.length;j++){
-                            if(numberOfLegs[j] == legs.length){
-                                numberOfSchedules = j;
-                            }
-                        }
-                        var n = 0;
-                        schedules.push(legs[0].from + " --- " + legs[0].to + " takes " + legs[0].duration.toString() + "|");
-                        for(var i=0; i<numberOfSchedules-1;i++){
-                            var index = n+numberOfSchedules;
-                            schedules.push(legs[index].from + " --- " + legs[index].to + " takes " + legs[index].duration.toString() + "|");
-                            n += numberOfSchedules+1;
-                        }
-                        schedules.push(legs[legs.length-1].from + " --- " + legs[legs.length-1].to + " takes " + legs[legs.length-1].duration.toString() + "|");
                     }, 1000);
                     /*var schedules;
                     schedules.push(legs[0].from + "09:00" + "09:00");
@@ -100,10 +92,10 @@
                 }
             });
         }
-        function getSchedule(){
+        /*function getSchedule(){
             url = 'schedule.html?arr=' + encodeURIComponent(schedules.join("|"));
             document.location.href = url;
-        }
+        }*/
         // Sets the map on all markers in the array.
         function setMapOnAll(map) {
             for (var i = 0; i < markers.length; i++) {
@@ -120,28 +112,10 @@
         function showMarkers() {
             setMapOnAll(map);
         }
-        //          Old Code for menu bar
-        //          $( document ).ready(function() {
-        //              var shown = 0;
-        //              $( ".menu" ).hide();
-        //              $( ".hamburger" ).click(function() {
-        //                  $( ".menu" ).slideToggle( "slow", function() {
-        //                      if(shown == 0){
-        //                          $( ".menu" ).show();
-        //                          shown = 1;
-        //                      }
-        //                      else{
-        //                          $( ".menu" ).hide();
-        //                          shown = 0;
-        //                      }
-        //
-        //                  });
-        //              });
-        //          });
-        //          <!--<button class="menu">Schedule</button>-->
+
         /* Set the width of the side navigation to 250px */
         function openNav() {
-            document.getElementById("mySidenav").style.width = "250px";
+            document.getElementById("mySidenav").style.width = "400px";
         }
 
         /* Set the width of the side navigation to 0 */
@@ -153,11 +127,6 @@
 </head>
 <body>
 <div id="content">
-    <!--<div id="menu">-->
-    <!--<img class="hamburger" src="img/hamburger.png" alt="Hamburger">-->
-    <!--<button class="menu">Schedule</button>-->
-    <!--</div>-->
-
     <!-- Use any element to open the sidenav -->
     <div id="menu">
         <div class="hamburger" onclick="openNav();">
@@ -167,9 +136,9 @@
         </div>
         <div id="mySidenav" class="sidenav">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <p>Location        Arrival Time           Departure Time</p>
-            <ul id="schedule"></ul>
-            <a onclick="getSchedule();">Schedule</a>
+            <p>Schedule</p>
+            <ul id="schedule" style="list-style-type: none;"></ul>
+            <!--<a onclick="getSchedule();">Schedule</a>-->
         </div>
 
     </div>

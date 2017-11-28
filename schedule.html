@@ -12,9 +12,9 @@
             schedules[i] = schedules[i].split("%20").join(" ");
         }
         schedules[schedules.length-1] = schedules[schedules.length-1].split("%7C")[0];
-        for(var i = 0; i<schedules.length; i++){
+        for(var j = 0; i<schedules.length; i++){
             var node = document.createElement("LI");                 // Create a <li> node
-            var textnode = document.createTextNode(schedules[i]);         // Create a text node
+            var textnode = document.createTextNode(schedules[j]);         // Create a text node
             node.appendChild(textnode);                              // Append the text to <li>
             document.getElementById("schedule").appendChild(node);
         }
