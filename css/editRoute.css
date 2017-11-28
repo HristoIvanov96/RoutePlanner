@@ -1,7 +1,3 @@
-* {
-    box-sizing: border-box;
-}
-
 html {
     background-image: url('../img/background.jpg');
     background-repeat: no-repeat;
@@ -14,15 +10,14 @@ body {
 
 h1 {
     font-family: "Times New Roman", Times, serif;
-    font-size: 48px;
+    font-size: 55px;
     /*color: black;*/
     margin-bottom: 20px;
-	text-align: center;
 }
 
 div {
     margin: auto;
-    text-align: left;
+    text-align: center;
 }
 
 h3 {
@@ -30,27 +25,21 @@ h3 {
 }
 
 .centerDiv {
-    width: 28%;
+    width: 35%;
     height: auto;
     margin: 10% auto;
-	padding: 10px 10px;
-	background-color: #fde0da;
-	opacity: 0.90;
-	border-radius: 12px;
+    padding: 3% 3%;
+    background-color: #fde0da;
+    opacity: 0.90;
+    border-radius: 12px;
 }
 
 .innerDiv {
-    width: 42%;
+    width: 35%;
     height: auto;
-	text-align: left;
-	background-color: #fde0da;
-	border-radius: 12px;
-	font-size: 22px;
-	position: relative;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+    padding: 3% 3%;
+    background-color: #fde0da;
+    border-radius: 12px;
 }
 
 input[type=submit] {
