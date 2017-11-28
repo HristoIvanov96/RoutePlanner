@@ -1,36 +1,38 @@
 html {
-	background-image: url('../img/background.jpg');
+	background-image: url('../img/Cityscape.jpeg');
 	background-repeat:no-repeat;
 	background-size:cover;
+	background-attachment: fixed;
+    background-position: center;
 }
 
 h1 {
-	font-family: "Times New Roman", Times, serif;
 	font-size: 42px;
 	color: black;
 }
 
 h2 {
-	font-family: "Times New Roman", Times, serif;
 	font-size: 23px;
 	color: black;
 	
 }
 .centerDiv{
+    font-family: "Helvetica";
+    position: absolute;
+    top: -15%;
+    left: 25%;
 	width: 29%;
 	height:auto;
 	margin:10% 10%;
 	padding: 10px 10px;
-	background-color: #fde0da;
+	background-color: white;
 	opacity: 0.85;
 	border-radius: 12px;
 }
 
 .innerDiv{
-	width: 255px;
+	width: 260px;
 	height:auto;
-	background-color: #fde0da;
-	opacity: 0.85;
 	border-radius: 12px;
 }
 	
@@ -62,17 +64,18 @@ h2 {
     left: 0;
     height: 25px;
     width: 25px;
-    background-color: #a471bc;
+    background-color: #c9f0ff;
+    border: 1px solid #68caf1
 }
 
 /* On mouse-over, add a pink background color */
 .container:hover input ~ .checkmark {
-    background-color: #ba6d8d;
+    background-color: #68caf1;
 }
 
 /* When the checkbox is checked, add a purple background */
 .container input:checked ~ .checkmark {
-    background-color: #a471bc;
+    background-color: #68caf1;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -102,7 +105,7 @@ h2 {
 	
 input[type=submit] {
     width: 200px;
-    background-color: #a471bc;
+    background-color: #c9f0ff;
     color: black;
 	font-size: 110%;
 	font-weight: bold;
@@ -111,8 +114,9 @@ input[type=submit] {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    border: 1px solid #68caf1;
 }
 
 input[type=submit]:hover {
-    background-color: #ba6d8d;
+    background-color: #68caf1;
 }
