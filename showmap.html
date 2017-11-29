@@ -122,6 +122,12 @@
         function closeNav() {
             document.getElementById("mySidenav").style.width = "0";
         }
+
+        function editRoute() {
+            url = 'createRoute.html';
+            document.location.href = url;
+        }
+
     </script>
     <link rel="stylesheet" type="text/css" href="css/showmap.css">
 </head>
@@ -135,10 +141,16 @@
             <div class="bar3"></div>
         </div>
         <div id="mySidenav" class="sidenav">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <p>Schedule</p>
-            <ul id="schedule" style="list-style-type: none;"></ul>
-            <!--<a onclick="getSchedule();">Schedule</a>-->
+
+            <div id="sidebarContent">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <h1>Schedule</h1>
+                <ul id="schedule" style="list-style-type: none;"></ul>
+                <!--<a onclick="getSchedule();">Schedule</a>-->
+                <center>
+                <button id="editButton" onclick="editRoute()">Edit Route</button>
+                </center>
+            </div>
         </div>
 
     </div>
