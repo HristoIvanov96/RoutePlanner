@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fe56c882-0ef1-42b7-bb70-d6f5bf0f330c" name="Default" comment="Minor problems">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/createRoute.html" afterPath="$PROJECT_DIR$/createRoute.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/showmap.html" afterPath="$PROJECT_DIR$/showmap.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,11 +25,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="showmap.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="showmap.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/showmap.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="119" column="39" lean-forward="false" selection-start-line="119" selection-start-column="39" selection-end-line="119" selection-end-column="39" />
+            <state relative-caret-position="151">
+              <caret line="124" column="32" lean-forward="false" selection-start-line="124" selection-start-column="32" selection-end-line="124" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -66,7 +65,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="createRoute.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="createRoute.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/createRoute.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="219">
@@ -125,8 +124,8 @@
         <option value="$PROJECT_DIR$/editRoute.html" />
         <option value="$PROJECT_DIR$/addAttractions.html" />
         <option value="$PROJECT_DIR$/loadgpx.js" />
-        <option value="$PROJECT_DIR$/showmap.html" />
         <option value="$PROJECT_DIR$/createRoute.html" />
+        <option value="$PROJECT_DIR$/showmap.html" />
       </list>
     </option>
   </component>
@@ -694,12 +693,12 @@
       <workItem from="1511714786283" duration="11791000" />
       <workItem from="1511806344790" duration="10483000" />
       <workItem from="1511911947084" duration="112000" />
-      <workItem from="1511989861879" duration="3446000" />
+      <workItem from="1511989861879" duration="4018000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="55919000" />
+    <option name="totallyTimeSpent" value="56491000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -1126,18 +1125,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/showmap.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="119" column="39" lean-forward="false" selection-start-line="119" selection-start-column="39" selection-end-line="119" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/createRoute.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="219">
           <caret line="64" column="39" lean-forward="false" selection-start-line="64" selection-start-column="39" selection-end-line="64" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/showmap.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="124" column="32" lean-forward="false" selection-start-line="124" selection-start-column="32" selection-end-line="124" selection-end-column="32" />
           <folding />
         </state>
       </provider>
