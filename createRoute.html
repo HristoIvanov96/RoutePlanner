@@ -15,7 +15,6 @@
 <div class="centerDiv">
     <h1> Plan Your Journey </h1>
 <div class="innerDiv">
-    <form action="addAttractions.html" method="get">
         City &emsp;&nbsp;&nbsp;
 
 			<select >
@@ -46,17 +45,28 @@
                 <option value="Walking">Walking</option>
             </select>
 	</div>
-       <center> <input type="submit" value="Add Attractions"/></center>
-    </form>
+       <center>
+           <button onclick="addTime()">
+               <input type="submit" value="Add Attractions"/>
+           </button>
+       </center>
     <center>
-    <button onclick="goBack()">
-        <input type="submit" id="goback" value="Back"/>
-    </button>
+        <button onclick="goBack()">
+            <input type="submit" id="goback" value="Back"/>
+        </button>
+    </center>
+
     <script>
         function goBack() {
             url = 'home.html';
             document.location.href = url;
         }
+        function addTime() {
+            console.log(document.getElementById('startTime').value);
+		    var time = document.getElementById('startTime').value;
+            url = 'addAttractions.html?time=' + encodeURIComponent(time);;
+            document.location.href = url;
+	    }
     </script>
 </div>
 </body>
