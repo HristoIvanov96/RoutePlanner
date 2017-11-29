@@ -57,6 +57,14 @@
     </center>
 
     <script>
+        window.onload = function () {
+            var d = new Date(); // for now
+            var hours = d.getHours(); // => 9
+            var minutes = d.getMinutes(); // =>  30
+            document.getElementById("startTime").defaultValue = hours + ":" + minutes;
+        };
+
+
         function goBack() {
             url = 'home.html';
             document.location.href = url;
