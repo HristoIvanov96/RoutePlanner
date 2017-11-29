@@ -16,16 +16,15 @@
     <script>
 
         var map;
+        var time;
         //var schedules = [];
         window.onload = function () {
             var url = document.location.href,
-                params = url.split('?')[1].split('&'),
-                data = {}, tmp;
-            for (var i = 0, l = params.length; i < l; i++) {
-                tmp = params[i].split('=');
-                data = tmp[1];
-            }
-            var data1 = data.split("%2C").join(',');
+                params = url.split('=')[1].split("%26"); // splits the locations and time into an array
+            time = params[1].split("%3D")[1].split("%253A").join(":"); // get the time from the url
+            document.getElementById('startTime').innerHTML = "Start time: " + time;
+            var sights = params[0];
+            var data1 = sights.split("%2C").join(',');
             data1 = data1.split("%20").join(" ");
             data1 = data1.split(",");
             initMap(data1);
@@ -145,6 +144,7 @@
             <div id="sidebarContent">
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                 <h1>Schedule</h1>
+                <h2 id="startTime"></h2>
                 <ul id="schedule" style="list-style-type: none;"></ul>
                 <!--<a onclick="getSchedule();">Schedule</a>-->
                 <center>

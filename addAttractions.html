@@ -56,6 +56,12 @@
 			<input  type="submit" id = "goback" value="Back" />
 		</button>
 	<script>
+	var params;
+	window.onload = function () {
+            var url = document.location.href;
+            params = "&" + url.split('?')[1];
+    };
+
 	function getCheckedBoxes() {
 		  var checkboxes = document.getElementsByClassName('check');
 		  var checkboxesChecked = [];
@@ -68,7 +74,7 @@
 			 }
 		  }
 
-		url = 'showmap.html?arr=' + encodeURIComponent(checkboxesChecked);
+		url = 'showmap.html?arr=' + encodeURIComponent(checkboxesChecked + params);
 		document.location.href = url;
 	}
 
