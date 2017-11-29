@@ -51,9 +51,7 @@
                     parser.addOurPointsToMap(arr);
                     clearMarkers();
                     var legs = parser.drawRoute();
-                    //var legs = parser.createRoute();
                     //need timeout because the createRoute function is slow for some reason
-                    //sometimes need to refresh the page for the list to show
                     setTimeout(function() {
                         for(var i = 0; i < legs.length; i++){
                             var node = document.createElement("LI");
@@ -65,7 +63,8 @@
                             node.appendChild(textnode);                              // Append the text to <li>
                             document.getElementById("schedule").appendChild(node);
                             var node = document.createElement("LI");                 // Create a <li> node
-                            var textnode = document.createTextNode("TAKES: " + legs[i].duration.toString());         // Create a text node
+                            time = sumTime(time, legs[i].duration);
+                            var textnode = document.createTextNode("TAKES: " + time);         // Create a text node
                             node.appendChild(textnode);                              // Append the text to <li>
                             document.getElementById("schedule").appendChild(node);
                             var br = document.createElement("br");
@@ -110,6 +109,42 @@
         // Shows any markers currently in the array.
         function showMarkers() {
             setMapOnAll(map);
+        }
+
+        function sumTime(current, next){
+            current = current.split(":");               // split the current time e.g 10:41
+            var h = parseInt(current[0]);
+            var m = parseInt(current[1]);
+            next = next.split(":");
+            var h1 = parseInt(next[0]);
+            var m1 = parseInt(next[1]);
+            console.log(current);
+            console.log(next);
+            if(m + m1 >= 60){
+                    var excess = (m + m1)%60;
+                    if(h == 23){
+                        h = 0;
+                        m = excess;
+                    }
+                    else{
+                        h++;
+                        m = excess;
+                    }
+
+            }
+            else{
+                    m += m1;
+            }
+            if(m < 10 && h < 10){
+                return "0" + h + ":0" + m;
+            }
+            if(m < 10){
+                return h + ":0" + m;
+            }
+            if(h < 10){
+                return "0" + h + ":" + m;
+            }
+            return h + ":" + m;
         }
 
         /* Set the width of the side navigation to 250px */

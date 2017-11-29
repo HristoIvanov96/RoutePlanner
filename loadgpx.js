@@ -409,7 +409,6 @@ GPXParser.prototype.drawRoute = function () {
                     var distance = element.distance.text;
                     //split the duration, so that we can have - ["24", "mins"]
                     //var duration1 = element.duration.text.split(" ");
-                    var duration1 = element.duration.text;
                     if(origins[i].trim() === "Glasgow, UK"){
                         origins[i] = "Grand Central Hotel";
                     }
@@ -418,7 +417,17 @@ GPXParser.prototype.drawRoute = function () {
                         destinations[i] = "Grand Central Hotel";
                     }
                     var to1 = destinations[j];
-                    legs.push({duration:duration1, from:from1, to:to1});
+                    var duration1 = element.duration.text;
+                    duration1 = duration1.split(" ");
+                    if(duration1.length > 2){
+                        var h = parseInt(duration1[0]);
+                        var m = parseInt(duration1[2]);
+                        legs.push({duration:h+":"+m, from:from1, to:to1});
+                    }
+                    else{
+                        var m = parseInt(duration1[0]);
+                        legs.push({duration:"00:"+m, from:from1, to:to1});
+                    }
                 }
             }
         }
@@ -434,7 +443,7 @@ GPXParser.prototype.addRoutepointsToMap = function() {
         this.addRouteToMap(routes[i], this.trackcolour, this.trackwidth);
     }
 };
-
+/*
 GPXParser.prototype.createRoute = function() {
     var origin = [];
     var destinations = [];
@@ -472,19 +481,28 @@ GPXParser.prototype.createRoute = function() {
                     //fix a bug with duplicate markers
                     if(element.distance.text == "1 m")continue;
                     var distance = element.distance.text;
-                    //split the duration, so that we can have - ["24", "mins"]
                     //var duration1 = element.duration.text.split(" ");
-                    var duration1 = element.duration.text;
                     var from1 = origins[i];
                     var to1 = destinations[j];
-                    legs.push({duration:duration1, from:from1, to:to1});
+                    var duration1 = element.duration.text;
+                    duration1 = duration1.split(" ");
+                    if(duration1.length > 2){
+                        var h = parseInt(duration1[0]);
+                        var m = parseInt(duration1[2]);
+                        legs.push({duration:duration1, from:from1, to:to1});
+                    }
+                    else{
+                        var m = parseInt(duration1[0]);
+                        console.log(m);
+                        legs.push({duration:duration1, from:from1, to:to1});
+                    }
                 }
             }
         }
     }
     return legs;
 };
-
+*/
 GPXParser.prototype.createSchedule = function(legs) {
     if(legs.length == 0){return "Route not found"; }
     document.write(legs[0].getAttribute("from") + ". arrive at: " + "09:00");
