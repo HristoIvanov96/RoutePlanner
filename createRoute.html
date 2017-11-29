@@ -61,6 +61,8 @@
             var d = new Date(); // for now
             var hours = d.getHours(); // => 9
             var minutes = d.getMinutes(); // =>  30
+            if(hours < 10) hours = "0" + hours;
+            if(minutes < 10) minutes = "0" + minutes;
             document.getElementById("startTime").defaultValue = hours + ":" + minutes;
         };
 

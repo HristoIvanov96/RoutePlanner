@@ -64,7 +64,7 @@
                             document.getElementById("schedule").appendChild(node);
                             var node = document.createElement("LI");                 // Create a <li> node
                             time = sumTime(time, legs[i].duration);
-                            var textnode = document.createTextNode("TAKES: " + time);         // Create a text node
+                            var textnode = document.createTextNode("TIME AT DESTINATION: " + time);         // Create a text node
                             node.appendChild(textnode);                              // Append the text to <li>
                             document.getElementById("schedule").appendChild(node);
                             var br = document.createElement("br");
@@ -118,30 +118,51 @@
             next = next.split(":");
             var h1 = parseInt(next[0]);
             var m1 = parseInt(next[1]);
-            console.log(current);
             console.log(next);
-            if(m + m1 >= 60){
+            if(m + m1 >= 60 && h1 >= 1){
                     var excess = (m + m1)%60;
                     if(h == 23){
-                        h = 0;
+                        h = 1;
                         m = excess;
                     }
                     else{
-                        h++;
+                        h+= 2;
                         m = excess;
                     }
-
+            }
+            else if(m + m1 >= 60){
+                var excess = (m + m1)%60;
+                if(h == 23){
+                    h = 0;
+                    m = excess;
+                }
+                else{
+                    h++;
+                    m = excess;
+                }
+            }
+            else if(h1 >= 1){
+                if(h == 23){
+                    h = 0;
+                    m += m1;
+                }
+                else{
+                    h += h1;
+                    m += m1;
+                }
             }
             else{
+                    h += h1;
                     m += m1;
             }
+            //format the time appropriately
             if(m < 10 && h < 10){
                 return "0" + h + ":0" + m;
             }
-            if(m < 10){
+            else if(m < 10){
                 return h + ":0" + m;
             }
-            if(h < 10){
+            else if(h < 10){
                 return "0" + h + ":" + m;
             }
             return h + ":" + m;
