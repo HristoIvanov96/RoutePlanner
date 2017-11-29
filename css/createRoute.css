@@ -2,6 +2,10 @@
     box-sizing: border-box;
 }
 
+button {
+    border: none;
+}
+
 html {
 	background-image: url('../img/Cityscape.jpeg');
 	background-repeat:no-repeat;
