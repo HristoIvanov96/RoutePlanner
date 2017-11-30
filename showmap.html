@@ -67,11 +67,11 @@
                     setTimeout(function() {
                         for(var i = 0; i < legs.length; i++){
                             var node = document.createElement("LI");
-                            var textnode = document.createTextNode("FROM: " + legs[i].from);
+                            var textnode = document.createTextNode("FROM: " + getName(legs[i].from));
                             node.appendChild(textnode);
                             document.getElementById("schedule").appendChild(node);
                             var node = document.createElement("LI");                 // Create a <li> node
-                            var textnode = document.createTextNode("TO: " + legs[i].to);         // Create a text node
+                            var textnode = document.createTextNode("TO: " + getName(legs[i].to));         // Create a text node
                             node.appendChild(textnode);                              // Append the text to <li>
                             document.getElementById("schedule").appendChild(node);
                             var node = document.createElement("LI");                 // Create a <li> node
@@ -91,10 +91,42 @@
                 }
             });
         }
-        /*function getSchedule(){
-            url = 'schedule.html?arr=' + encodeURIComponent(schedules.join("|"));
-            document.location.href = url;
-        }*/
+
+        function getName(location){
+            var name = location.split(",")[0];
+            switch(name){
+                case "Grand Central Hotel":
+                    return "Grand Central Hotel";
+                    break;
+                case "1385 Argyle St":
+                    return "Kelvingrove Art Gallery";
+                    break;
+                case "Riverside Museum Pier":
+                    return "Riverside Museum";
+                    break;
+                case "Vicars Alley":
+                    return "Glasgow Cathedral";
+                    break;
+                case "70 University Avenue":
+                    return "University of Glasgow";
+                    break;
+                case "Cartridge World":
+                    return "The Lighthouse";
+                    break;
+                case "22 Janefield St":
+                    return "Celtic Park";
+                    break;
+                case "Monument to Sir John Moore":
+                    return "George Square";
+                    break;
+                case "Templeton St":
+                    return "Glasgow Green";
+                    break;
+                default:
+                    return name;
+            }
+        }
+
         // Sets the map on all markers in the array.
         function setMapOnAll(map) {
             for (var i = 0; i < markers.length; i++) {
