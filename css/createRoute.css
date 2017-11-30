@@ -43,7 +43,7 @@ input{
     position: absolute;
     top: -15%;
     left: 25%;
-	width: 29%;
+	width: 20%;
 	height:auto;
 	margin:10% 10%;
 	padding: 10px 10px;
@@ -53,7 +53,7 @@ input{
 }
 
 .innerDiv {
-    width: 200px;
+    width: 290px;
     height: auto;
 	text-align: left;
 	background-color: white;
@@ -61,20 +61,27 @@ input{
 	position: relative;
 }
 
-input[type=submit] {
+button {
     width: 200px;
     background-color: #c9f0ff;
     color: black;
-	font-size: 130%;
-	font-weight: bold;
+    font-size: 110%;
+    font-weight: bold;
     padding: 12px 20px;
     margin: 5% 0;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     border: 1px solid #68caf1;
+    position: static;
 }
 
-input[type=submit]:hover {
+button:hover {
     background-color: #68caf1;
+}
+
+/* Hide the browser's default buttons */
+button input {
+    position: absolute;
+    opacity: 0;
 }

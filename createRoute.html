@@ -12,7 +12,8 @@
     <link rel="stylesheet" type="text/css" href="css/createRoute.css">
 </head>
 <body>
-<div class="centerDiv">
+
+<div class="centerDiv"><center>
     <h1> Plan Your Journey </h1>
 <div class="innerDiv">
         City &emsp;&nbsp;&nbsp;
@@ -22,7 +23,7 @@
 			</select>
         <br>
         <br>
-        Hotel &emsp;&nbsp;&nbsp;
+        Hotel
         <select >
             <option value="GrandCentralHotel">Grand Central Hotel</option>
         </select>
@@ -45,17 +46,14 @@
                 <option id = value="WALKING">Walking</option>
             </select>
 	</div>
-       <center>
-           <button onclick="addTime()">
+           <button onclick="addTime()"> Add Attraction
                <input type="submit" value="Add Attractions"/>
            </button>
-       </center>
-    <center>
-        <button onclick="goBack()">
+    &emsp;
+        <button onclick="goBack()"> Back
             <input type="submit" id="goback" value="Back"/>
         </button>
-    </center>
-
+</center>
     <script>
         window.onload = function () {
             var d = new Date(); // for now
