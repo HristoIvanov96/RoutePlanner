@@ -397,36 +397,32 @@ GPXParser.prototype.drawRoute = function (travel) {
         if (status == 'OK') {
             var origins = response.originAddresses;
             var destinations = response.destinationAddresses;
-            for (var i = 1; i < origins.length; i++) {
+            for (var i = 0; i < origins.length; i++) {
                 var results = response.rows[i].elements;
-
-                for (var j = 0; j < results.length; j++) {
-                    if(j != i) continue;
-                    var element = results[j];
-                    //fix a bug with duplicate markers
-                    if(element.distance.text == "1 m")continue;
-                    var distance = element.distance.text;
-                    //split the duration, so that we can have - ["24", "mins"]
-                    //var duration1 = element.duration.text.split(" ");
-                    if(origins[i].trim() === "Glasgow, UK"){
-                        origins[i] = "Grand Central Hotel";
-                    }
-                    var from1 = markers[i-1];
-                    if(destinations[i].trim() === "Glasgow, UK"){
-                        destinations[i] = "Grand Central Hotel";
-                    }
-                    var to1 = markers[i];
-                    var duration1 = element.duration.text;
-                    duration1 = duration1.split(" ");
-                    if(duration1.length > 2){
-                        var h = parseInt(duration1[0]);
-                        var m = parseInt(duration1[2]);
-                        legs.push({duration:h+":"+m, from:from1, to:to1});
-                    }
-                    else{
-                        var m = parseInt(duration1[0]);
-                        legs.push({duration:"00:"+m, from:from1, to:to1});
-                    }
+                var element = results[i];
+                //fix a bug with duplicate markers
+                if(element.distance.text == "1 m")continue;
+                var distance = element.distance.text;
+                //split the duration, so that we can have - ["24", "mins"]
+                //var duration1 = element.duration.text.split(" ");
+                if(origins[i].trim() === "Glasgow, UK"){
+                    origins[i] = "Grand Central Hotel";
+                }
+                var from1 = origins[i];
+                if(destinations[i].trim() === "Glasgow, UK"){
+                    destinations[i] = "Grand Central Hotel";
+                }
+                var to1 = destinations[i];
+                var duration1 = element.duration.text;
+                duration1 = duration1.split(" ");
+                if(duration1.length > 2){
+                    var h = parseInt(duration1[0]);
+                    var m = parseInt(duration1[2]);
+                    legs.push({duration:h+":"+m, from:from1, to:to1});
+                }
+                else{
+                    var m = parseInt(duration1[0]);
+                    legs.push({duration:"00:"+m, from:from1, to:to1});
                 }
             }
         }
