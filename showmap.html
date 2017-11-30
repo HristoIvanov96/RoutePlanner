@@ -14,7 +14,518 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
+        ///////////////////////////////////////////////////////////////////////////////
+// loadgpx.4.js
+//
+// Javascript object to load GPX-format GPS data into Google Maps.
+//
+// Copyright (C) 2006 Kaz Okuda (http://notions.okuda.ca)
+//
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either version 2
+// of the License, or (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+//
+// If you use this script or have any questions please leave a comment
+// at http://notions.okuda.ca/geotagging/projects-im-working-on/gpx-viewer/
+// A link to the GPL license can also be found there.
+//
+///////////////////////////////////////////////////////////////////////////////
+//
+// History:
+//    revision 1 - Initial implementation
+//    revision 2 - Removed LoadGPXFileIntoGoogleMap and made it the callers
+//                 responsibility.  Added more options (colour, width, delta).
+//    revision 3 - Waypoint parsing now compatible with Firefox.
+//    revision 4 - Upgraded to Google Maps API version 2.  Tried changing the way
+//               that the map calculated the way the center and zoom level, but
+//               GMAP API 2 requires that you center and zoom the map first.
+//               I have left the bounding box calculations commented out in case
+//               they might come in handy in the future.
+//
+//    5/28/2010 - Upgraded to Google Maps API v3 and refactored the file a bit.
+//                          (Chris Peplin)
+//
+// Author: Kaz Okuda
+// URI: http://notions.okuda.ca/geotagging/projects-im-working-on/gpx-viewer/
+//
+// Updated for Google Maps API v3 by Chris Peplin
+// Fork moved to GitHub: https://github.com/peplin/gpxviewer
+//
+///////////////////////////////////////////////////////////////////////////////
+var markers = [];
+function GPXParser(xmlDoc, map) {
+    this.xmlDoc = xmlDoc;
+    this.map = map;
+    this.trackcolour = "#ff00ff"; // red
+    this.trackwidth = 5;
+    this.mintrackpointdelta = 0.0001;
+}
 
+// Set the colour of the track line segements.
+GPXParser.prototype.setTrackColour = function(colour) {
+    this.trackcolour = colour;
+}
+
+// Set the width of the track line segements
+GPXParser.prototype.setTrackWidth = function(width) {
+    this.trackwidth = width;
+}
+
+// Set the minimum distance between trackpoints.
+// Used to cull unneeded trackpoints from map.
+GPXParser.prototype.setMinTrackPointDelta = function(delta) {
+    this.mintrackpointdelta = delta;
+}
+
+GPXParser.prototype.translateName = function(name) {
+    if(name == "wpt") {
+        return "Waypoint";
+    }
+    else if(name == "trkpt") {
+        return "Track Point";
+    }
+    else if(name == "rtept") {
+        return "Route Point";
+    }
+}
+
+
+GPXParser.prototype.createMarker = function(point) {
+    var lon = parseFloat(point.getAttribute("lon"));
+    var lat = parseFloat(point.getAttribute("lat"));
+    var html = "";
+
+    var pointElements = point.getElementsByTagName("html");
+    if(pointElements.length > 0) {
+        for(i = 0; i < pointElements.item(0).childNodes.length; i++) {
+            html += pointElements.item(0).childNodes[i].nodeValue;
+        }
+    }
+    else {
+        // Create the html if it does not exist in the point.
+        html = "<b>" + this.translateName(point.nodeName) + "</b><br>";
+        var attributes = point.attributes;
+        var attrlen = attributes.length;
+        for(i = 0; i < attrlen; i++) {
+            html += attributes.item(i).name + " = " +
+                    attributes.item(i).nodeValue + "<br>";
+        }
+
+        if(point.hasChildNodes) {
+            var children = point.childNodes;
+            var childrenlen = children.length;
+            for(i = 0; i < childrenlen; i++) {
+                // Ignore empty nodes
+                if(children[i].nodeType != 1) continue;
+                if(children[i].firstChild == null) continue;
+                html += children[i].nodeName + " = " +
+                        children[i].firstChild.nodeValue + "<br>";
+            }
+        }
+    }
+
+    var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(lat,lon),
+        map: this.map
+    });
+    markers.push(marker);
+
+    var infowindow = new google.maps.InfoWindow({
+        content: html,
+        size: new google.maps.Size(50,50)
+    });
+
+    google.maps.event.addListener(marker, "click", function() {
+        infowindow.open(this.map, marker);
+    });
+}
+
+GPXParser.prototype.addTrackSegmentToMap = function(trackSegment, colour,
+        width) {
+    var trackpoints = trackSegment.getElementsByTagName("trkpt");
+    if(trackpoints.length == 0) {
+        return;
+    }
+
+    var pointarray = [];
+
+    // process first point
+    var lastlon = parseFloat(trackpoints[0].getAttribute("lon"));
+    var lastlat = parseFloat(trackpoints[0].getAttribute("lat"));
+    var latlng = new google.maps.LatLng(lastlat,lastlon);
+    pointarray.push(latlng);
+
+    for(var i = 1; i < trackpoints.length; i++) {
+        var lon = parseFloat(trackpoints[i].getAttribute("lon"));
+        var lat = parseFloat(trackpoints[i].getAttribute("lat"));
+
+        // Verify that this is far enough away from the last point to be used.
+        var latdiff = lat - lastlat;
+        var londiff = lon - lastlon;
+        if(Math.sqrt(latdiff*latdiff + londiff*londiff)
+                > this.mintrackpointdelta) {
+            lastlon = lon;
+            lastlat = lat;
+            latlng = new google.maps.LatLng(lat,lon);
+            pointarray.push(latlng);
+        }
+
+    }
+
+    var polyline = new google.maps.Polyline({
+        path: pointarray,
+        strokeColor: colour,
+        strokeWeight: width,
+        map: this.map
+    });
+}
+
+GPXParser.prototype.addTrackToMap = function(track, colour, width) {
+    var segments = track.getElementsByTagName("trkseg");
+    for(var i = 0; i < segments.length; i++) {
+        var segmentlatlngbounds = this.addTrackSegmentToMap(segments[i], colour,
+                width);
+    }
+}
+
+GPXParser.prototype.addRouteToMap = function(route, colour, width) {
+    var routepoints = route.getElementsByTagName("rtept");
+    if (routepoints.length == 0) {
+        return;
+    }
+
+    //var pointarray = [];
+    var origin = [];
+    var destinations = [];
+
+    // process first point
+    var lastlon = parseFloat(routepoints[0].getAttribute("lon"));
+    var lastlat = parseFloat(routepoints[0].getAttribute("lat"));
+    var latlng = new google.maps.LatLng(lastlat, lastlon);
+    //pointarray.push(latlng);
+    origin.push(latlng);
+
+    for (var i = 1; i < routepoints.length; i++) {
+        var lon = parseFloat(routepoints[i].getAttribute("lon"));
+        var lat = parseFloat(routepoints[i].getAttribute("lat"));
+
+        // Verify that this is far enough away from the last point to be used.
+        var latdiff = lat - lastlat;
+        var londiff = lon - lastlon;
+        if (Math.sqrt(latdiff * latdiff + londiff * londiff)
+            > this.mintrackpointdelta) {
+            lastlon = lon;
+            lastlat = lat;
+            latlng = new google.maps.LatLng(lat, lon);
+            //pointarray.push(latlng);
+            destinations.push(latlng);
+        }
+
+    }
+
+    var service = new google.maps.DistanceMatrixService();
+    service.getDistanceMatrix(
+        {
+            origins: origin,
+            destinations: destinations,
+            travelMode: 'WALKING'
+        }, callback);
+
+    function callback(response, status) {
+        if (status == 'OK') {
+            var origins = response.originAddresses;
+            var destinations = response.destinationAddresses;
+
+            for (var i = 0; i < origins.length; i++) {
+                var results = response.rows[i].elements;
+                for (var j = 0; j < results.length; j++) {
+                    var element = results[j];
+                    var distance = element.distance.text;
+                    var duration = element.duration.text;
+                    var from = origins[i];
+                    var to = destinations[j];
+                }
+            }
+        }
+    }
+}
+
+GPXParser.prototype.centerAndZoom = function(trackSegment) {
+
+    var pointlist = new Array("trkpt", "rtept", "wpt");
+    var minlat = 0;
+    var maxlat = 0;
+    var minlon = 0;
+    var maxlon = 0;
+
+    for(var pointtype = 0; pointtype < pointlist.length; pointtype++) {
+
+        // Center the map and zoom on the given segment.
+        var trackpoints = trackSegment.getElementsByTagName(
+                pointlist[pointtype]);
+
+        // If the min and max are uninitialized then initialize them.
+        if((trackpoints.length > 0) && (minlat == maxlat) && (minlat == 0)) {
+            minlat = parseFloat(trackpoints[0].getAttribute("lat"));
+            maxlat = parseFloat(trackpoints[0].getAttribute("lat"));
+            minlon = parseFloat(trackpoints[0].getAttribute("lon"));
+            maxlon = parseFloat(trackpoints[0].getAttribute("lon"));
+        }
+
+        for(var i = 0; i < trackpoints.length; i++) {
+            var lon = parseFloat(trackpoints[i].getAttribute("lon"));
+            var lat = parseFloat(trackpoints[i].getAttribute("lat"));
+
+            if(lon < minlon) minlon = lon;
+            if(lon > maxlon) maxlon = lon;
+            if(lat < minlat) minlat = lat;
+            if(lat > maxlat) maxlat = lat;
+        }
+    }
+
+    if((minlat == maxlat) && (minlat == 0)) {
+        this.map.setCenter(new google.maps.LatLng(49.327667, -122.942333), 14);
+        return;
+    }
+
+    // Center around the middle of the points
+    var centerlon = (maxlon + minlon) / 2;
+    var centerlat = (maxlat + minlat) / 2;
+
+    var bounds = new google.maps.LatLngBounds(
+            new google.maps.LatLng(minlat, minlon),
+            new google.maps.LatLng(maxlat, maxlon));
+    this.map.setCenter(new google.maps.LatLng(centerlat, centerlon));
+    this.map.fitBounds(bounds);
+}
+
+GPXParser.prototype.centerAndZoomToLatLngBounds = function(latlngboundsarray) {
+    var boundingbox = new google.maps.LatLngBounds();
+    for(var i = 0; i < latlngboundsarray.length; i++) {
+        if(!latlngboundsarray[i].isEmpty()) {
+            boundingbox.extend(latlngboundsarray[i].getSouthWest());
+            boundingbox.extend(latlngboundsarray[i].getNorthEast());
+        }
+    }
+
+    var centerlat = (boundingbox.getNorthEast().lat() +
+            boundingbox.getSouthWest().lat()) / 2;
+    var centerlng = (boundingbox.getNorthEast().lng() +
+            boundingbox.getSouthWest().lng()) / 2;
+    this.map.setCenter(new google.maps.LatLng(centerlat, centerlng),
+            this.map.getBoundsZoomLevel(boundingbox));
+}
+
+GPXParser.prototype.addTrackpointsToMap = function() {
+    var tracks = this.xmlDoc.documentElement.getElementsByTagName("trk");
+    for(var i = 0; i < tracks.length; i++) {
+        this.addTrackToMap(tracks[i], this.trackcolour, this.trackwidth);
+    }
+}
+
+GPXParser.prototype.addWaypointsToMap = function() {
+    var waypoints = this.xmlDoc.documentElement.getElementsByTagName("wpt");
+    for(var i = 0; i < waypoints.length; i++) {
+        this.createMarker(waypoints[i]);
+    }
+}
+
+GPXParser.prototype.addOurPointsToMap = function(arr) {
+    var waypoints = this.xmlDoc.documentElement.getElementsByTagName("wpt");
+    //Add glasgow central hotel
+    this.createMarker(waypoints[0]);
+    for(var i = 1; i < waypoints.length; i++) {
+        for(var j=0; j<arr.length; j++)
+            if(arr[j].trim() === waypoints[i].childNodes[5].childNodes[0].textContent){
+                this.createMarker(waypoints[i]);
+                break;
+            }
+    }
+}
+
+
+
+GPXParser.prototype.drawRoute = function (travel) {
+    var directionsDisplay = new google.maps.DirectionsRenderer();
+    var directionsService = new google.maps.DirectionsService();
+    map = this.map;
+    directionsDisplay.setMap(map);
+
+        var i;
+        var request = {
+            travelMode: travel,
+            optimizeWaypoints: true,
+
+        };
+
+        for (i = 0; i <= markers.length; i++) {
+
+            if (i == 0) request.origin = markers[0].getPosition();
+            else if (i == markers.length) request.destination = markers[0].getPosition();
+            else {
+                if (!request.waypoints) request.waypoints = [];
+                request.waypoints.push({
+                    location: markers[i].getPosition(),
+                    stopover: true
+                });
+            }
+        directionsService.route(request, function(result, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                directionsDisplay.setDirections(result);
+            }
+        });
+        }
+
+    var origin = [];
+    var destinations = [];
+    //The first two markers are the same(Glasgow central hotel) for some reason
+    //So that's why we skip the first
+    var latlng = request.origin;
+    origin.push(latlng);
+    var legs = [];
+
+    for (var i = 0; i < request.waypoints.length; i++) {
+        latlng = request.waypoints[i].location;
+        destinations.push(latlng);
+        origin.push(latlng)
+    }
+    latlng = request.destination;
+    destinations.push(latlng);
+
+    var service = new google.maps.DistanceMatrixService();
+    service.getDistanceMatrix(
+        {
+            origins: origin,
+            destinations: destinations,
+            travelMode: travel
+        }, callback);
+
+    function callback(response, status) {
+        if (status == 'OK') {
+            var origins = response.originAddresses;
+            var destinations = response.destinationAddresses;
+            for (var i = 0; i < origins.length; i++) {
+                var results = response.rows[i].elements;
+
+                for (var j = 0; j < results.length; j++) {
+                    if(j != i) continue;
+                    var element = results[j];
+                    //fix a bug with duplicate markers
+                    if(element.distance.text == "1 m")continue;
+                    var distance = element.distance.text;
+                    //split the duration, so that we can have - ["24", "mins"]
+                    //var duration1 = element.duration.text.split(" ");
+                    if(origins[i].trim() === "Glasgow, UK"){
+                        origins[i] = "Grand Central Hotel";
+                    }
+                    var from1 = origins[i];
+                    if(destinations[i].trim() === "Glasgow, UK"){
+                        destinations[i] = "Grand Central Hotel";
+                    }
+                    var to1 = destinations[j];
+                    var duration1 = element.duration.text;
+                    duration1 = duration1.split(" ");
+                    if(duration1.length > 2){
+                        var h = parseInt(duration1[0]);
+                        var m = parseInt(duration1[2]);
+                        legs.push({duration:h+":"+m, from:from1, to:to1});
+                    }
+                    else{
+                        var m = parseInt(duration1[0]);
+                        legs.push({duration:"00:"+m, from:from1, to:to1});
+                    }
+                }
+            }
+        }
+    }
+    return legs;
+
+};
+
+
+GPXParser.prototype.addRoutepointsToMap = function() {
+    var routes = this.xmlDoc.documentElement.getElementsByTagName("rte");
+    for(var i = 0; i < routes.length; i++) {
+        this.addRouteToMap(routes[i], this.trackcolour, this.trackwidth);
+    }
+};
+/*
+GPXParser.prototype.createRoute = function() {
+    var origin = [];
+    var destinations = [];
+    //The first two markers are the same(Glasgow central hotel) for some reason
+    //So that's why we skip the first
+    var latlng = markers[1].position;
+    origin.push(latlng);
+    var legs = [];
+
+    for (var i = 2; i < markers.length; i++) {
+        latlng = markers[i].position;
+        destinations.push(latlng);
+        origin.push(latlng)
+    }
+    latlng = markers[0].position;
+    destinations.push(latlng);
+
+    var service = new google.maps.DistanceMatrixService();
+    service.getDistanceMatrix(
+        {
+            origins: origin,
+            destinations: destinations,
+            travelMode: 'BICYCLING'
+        }, callback);
+
+    function callback(response, status) {
+        if (status == 'OK') {
+            var origins = response.originAddresses;
+            var destinations = response.destinationAddresses;
+            for (var i = 0; i < origins.length; i++) {
+                var results = response.rows[i].elements;
+
+                for (var j = 0; j < results.length; j++) {
+                    var element = results[j];
+                    //fix a bug with duplicate markers
+                    if(element.distance.text == "1 m")continue;
+                    var distance = element.distance.text;
+                    //var duration1 = element.duration.text.split(" ");
+                    var from1 = origins[i];
+                    var to1 = destinations[j];
+                    var duration1 = element.duration.text;
+                    duration1 = duration1.split(" ");
+                    if(duration1.length > 2){
+                        var h = parseInt(duration1[0]);
+                        var m = parseInt(duration1[2]);
+                        legs.push({duration:duration1, from:from1, to:to1});
+                    }
+                    else{
+                        var m = parseInt(duration1[0]);
+                        console.log(m);
+                        legs.push({duration:duration1, from:from1, to:to1});
+                    }
+                }
+            }
+        }
+    }
+    return legs;
+};
+*/
+GPXParser.prototype.createSchedule = function(legs) {
+    if(legs.length == 0){return "Route not found"; }
+    document.write(legs[0].getAttribute("from") + ". arrive at: " + "09:00");
+    for( var i = 0; i < legs.length; i++) {
+          document.write(legs[i].getAttribute("to") + ". arrive at: " + legs[i].getAttribute("duration"));
+    }
+}
         var map;
         var time;
         var pace;
