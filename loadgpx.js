@@ -397,7 +397,7 @@ GPXParser.prototype.drawRoute = function (travel) {
         if (status == 'OK') {
             var origins = response.originAddresses;
             var destinations = response.destinationAddresses;
-            for (var i = 0; i < origins.length; i++) {
+            for (var i = 1; i < origins.length; i++) {
                 var results = response.rows[i].elements;
 
                 for (var j = 0; j < results.length; j++) {
@@ -411,11 +411,11 @@ GPXParser.prototype.drawRoute = function (travel) {
                     if(origins[i].trim() === "Glasgow, UK"){
                         origins[i] = "Grand Central Hotel";
                     }
-                    var from1 = origins[i];
+                    var from1 = origins[(i-1)];
                     if(destinations[i].trim() === "Glasgow, UK"){
                         destinations[i] = "Grand Central Hotel";
                     }
-                    var to1 = destinations[j];
+                    var to1 = destinations[i];
                     var duration1 = element.duration.text;
                     duration1 = duration1.split(" ");
                     if(duration1.length > 2){
@@ -442,66 +442,7 @@ GPXParser.prototype.addRoutepointsToMap = function() {
         this.addRouteToMap(routes[i], this.trackcolour, this.trackwidth);
     }
 };
-/*
-GPXParser.prototype.createRoute = function() {
-    var origin = [];
-    var destinations = [];
-    //The first two markers are the same(Glasgow central hotel) for some reason
-    //So that's why we skip the first
-    var latlng = markers[1].position;
-    origin.push(latlng);
-    var legs = [];
 
-    for (var i = 2; i < markers.length; i++) {
-        latlng = markers[i].position;
-        destinations.push(latlng);
-        origin.push(latlng)
-    }
-    latlng = markers[0].position;
-    destinations.push(latlng);
-
-    var service = new google.maps.DistanceMatrixService();
-    service.getDistanceMatrix(
-        {
-            origins: origin,
-            destinations: destinations,
-            travelMode: 'BICYCLING'
-        }, callback);
-
-    function callback(response, status) {
-        if (status == 'OK') {
-            var origins = response.originAddresses;
-            var destinations = response.destinationAddresses;
-            for (var i = 0; i < origins.length; i++) {
-                var results = response.rows[i].elements;
-
-                for (var j = 0; j < results.length; j++) {
-                    var element = results[j];
-                    //fix a bug with duplicate markers
-                    if(element.distance.text == "1 m")continue;
-                    var distance = element.distance.text;
-                    //var duration1 = element.duration.text.split(" ");
-                    var from1 = origins[i];
-                    var to1 = destinations[j];
-                    var duration1 = element.duration.text;
-                    duration1 = duration1.split(" ");
-                    if(duration1.length > 2){
-                        var h = parseInt(duration1[0]);
-                        var m = parseInt(duration1[2]);
-                        legs.push({duration:duration1, from:from1, to:to1});
-                    }
-                    else{
-                        var m = parseInt(duration1[0]);
-                        console.log(m);
-                        legs.push({duration:duration1, from:from1, to:to1});
-                    }
-                }
-            }
-        }
-    }
-    return legs;
-};
-*/
 GPXParser.prototype.createSchedule = function(legs) {
     if(legs.length == 0){return "Route not found"; }
     document.write(legs[0].getAttribute("from") + ". arrive at: " + "09:00");
