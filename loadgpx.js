@@ -348,8 +348,7 @@ GPXParser.prototype.drawRoute = function (travel) {
         var i;
         var request = {
             travelMode: travel,
-            optimizeWaypoints: true,
-
+            optimizeWaypoints: true
         };
 
         for (i = 0; i <= markers.length; i++) {

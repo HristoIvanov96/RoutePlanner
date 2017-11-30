@@ -538,6 +538,10 @@ GPXParser.prototype.createSchedule = function(legs) {
             pace = params[3].split("3D")[1];
             document.getElementById('startTime').innerHTML = "Start time: " + time;
             var sights = params[0];
+            console.log(sights);
+            console.log(time);
+            console.log(travel);
+            console.log(pace);
             var data1 = sights.split("%2C").join(',');
             data1 = data1.split("%20").join(" ");
             data1 = data1.split(",");
