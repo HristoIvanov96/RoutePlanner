@@ -7,41 +7,74 @@
 			src="https://code.jquery.com/jquery-3.2.1.min.js"
 			integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 			crossorigin="anonymous"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src= "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/createRoute.css">
 </head>
 <body>
-<div class="centerDiv">
+
+<div class="centerDiv"><center>
 	<h1> Edit Your Journey </h1>
 	<div class="innerDiv">
-		<form action="addAttractions.html" method="get">
-			City &emsp;&nbsp;&nbsp;
+		City &emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;
 
-			<select >
-				<option value="Glasgow">Glasgow</option>
-			</select>
-			<br>
-			<br>
-			Start time
-			<input type="time">
-			<br>
-			<br>
-			Pace &emsp;&nbsp;&nbsp;&nbsp;
-			<select>
-				<option value="Casual">Casual</option>
-				<option value="Quick">Quick</option>
-			</select>
-			<br>
-			<br>
-			Travel &emsp;
-			<select>
-				<option value="Cycling">Cycling</option>
-				<option value="Walking">Walking</option>
-			</select>
+		<select >
+			<option value="Glasgow">Glasgow</option>
+		</select>
+		<br>
+		<br>
+		Hotel
+		<select >
+			<option value="GrandCentralHotel">Grand Central Hotel</option>
+		</select>
+		<br>
+		<br>
+		Start time &emsp;&emsp;&emsp;&nbsp;&nbsp;
+		<input id="startTime" type="time">
+		<br>
+		<br>
+		Pace &emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;
+		<select id = "Pace">
+			<option value="Casual">Casual</option>
+			<option value="Quick">Quick</option>
+		</select>
+		<br>
+		<br>
+		Travel &emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;
+		<select id = "Travel">
+			<option value="BICYCLING">Cycling</option>
+			<option value="WALKING">Walking</option>
+		</select>
 	</div>
-	<center> <input type="submit" value="Add Attractions"/></center>
-	</form>
+	<button onclick="addTime()"> Add Attraction
+		<input type="submit" value="Add Attractions"/>
+	</button>
+</center>
+	<script>
+        window.onload = function () {
+            var d = new Date(); // for now
+            var hours = d.getHours(); // => 9
+            var minutes = d.getMinutes(); // =>  30
+            if(hours < 10) hours = "0" + hours;
+            if(minutes < 10) minutes = "0" + minutes;
+            document.getElementById("startTime").defaultValue = hours + ":" + minutes;
+        };
+        function addTime() {
+            console.log(document.getElementById('startTime').value);
+            var time = document.getElementById('startTime').value;
+            url = 'addAttractions.html?time=' + encodeURIComponent(time);;
+            document.location.href = url;
+
+            console.log(document.getElementById('Travel').value);
+            var travel = document.getElementById('Travel').value;
+            url = url + '?travel=' + encodeURIComponent(travel);;
+            document.location.href = url;
+
+            console.log(document.getElementById('Pace').value);
+            var pace = document.getElementById('Pace').value;
+            url = url + '?pace=' + encodeURIComponent(pace);;
+            document.location.href = url;
+        }
+	</script>
 </div>
 </body>
 </html>
