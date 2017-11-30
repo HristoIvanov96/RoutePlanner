@@ -411,11 +411,11 @@ GPXParser.prototype.drawRoute = function (travel) {
                     if(origins[i].trim() === "Glasgow, UK"){
                         origins[i] = "Grand Central Hotel";
                     }
-                    var from1 = origins[(i-1)];
+                    var from1 = markers[i-1];
                     if(destinations[i].trim() === "Glasgow, UK"){
                         destinations[i] = "Grand Central Hotel";
                     }
-                    var to1 = destinations[i];
+                    var to1 = markers[i];
                     var duration1 = element.duration.text;
                     duration1 = duration1.split(" ");
                     if(duration1.length > 2){
