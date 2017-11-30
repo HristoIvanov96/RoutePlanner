@@ -17,31 +17,39 @@
 
         var map;
         var time;
+        var pace;
         //var schedules = [];
         window.onload = function () {
             var url = document.location.href,
                 params = url.split('=')[1].split("%26"); // splits the locations and time into an array
             time = params[1].split("%3D")[1].split("%253A").join(":"); // get the time from the url
+            var travel = params[2].split("%3D")[1];
+            pace = params[3].split("3D")[1];
             document.getElementById('startTime').innerHTML = "Start time: " + time;
             var sights = params[0];
             var data1 = sights.split("%2C").join(',');
             data1 = data1.split("%20").join(" ");
             data1 = data1.split(",");
-            initMap(data1);
-
+            initMap(data1, travel);
+            if (pace == "Casual"){
+                pace = "0:45";
+            }
+            else{
+                pace = "0:30";
+            }
         };
 
-        function initMap(arr) {
+        function initMap(arr, travel) {
             var origin = {lat: 55.8642, lng: -4.2518};
             map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 14,
                 center: origin,
                 mapTypeControl: false
             });
-            loadGPXFileIntoGoogleMap(map, "glasgow.gpx", arr);
+            loadGPXFileIntoGoogleMap(map, "glasgow.gpx", arr, travel);
         }
 
-        function loadGPXFileIntoGoogleMap(map, filename, arr) {
+        function loadGPXFileIntoGoogleMap(map, filename, arr, travel) {
             $.ajax({
                 url: filename,
                 dataType: "xml",
@@ -50,7 +58,7 @@
                     parser.centerAndZoom(data);
                     parser.addOurPointsToMap(arr);
                     clearMarkers();
-                    var legs = parser.drawRoute();
+                    var legs = parser.drawRoute(travel);
                     //need timeout because the createRoute function is slow for some reason
                     setTimeout(function() {
                         for(var i = 0; i < legs.length; i++){
@@ -67,26 +75,15 @@
                             var textnode = document.createTextNode("TIME AT DESTINATION: " + time);         // Create a text node
                             node.appendChild(textnode);                              // Append the text to <li>
                             document.getElementById("schedule").appendChild(node);
+                            var node = document.createElement("LI");                 // Create a <li> node
+                            time = sumTime(time, pace);
+                            var textnode = document.createTextNode("DEPART AT: " + time);         // Create a text node
+                            node.appendChild(textnode);                              // Append the text to <li>
+                            document.getElementById("schedule").appendChild(node);
                             var br = document.createElement("br");
                             document.getElementById("schedule").appendChild(br);
                         }
                     }, 1000);
-                    /*var schedules;
-                    schedules.push(legs[0].from + "09:00" + "09:00");
-                    time = 540;
-                    for(var i = 0; i<legs.length; i++){
-                        time = time + (legs[i].duration*60)
-                        schedules.push(legs[i].to + (time/60) + (time + 30))
-                        time = time + 30;
-                    }
-                    document.getElementById('schedule').innerHTML = "test";
-                    for(var i = 0; i<schedules.length; i++){
-                        var node = document.createElement("LI");                 // Create a <li> node
-                        var textnode = document.createTextNode(schedules[i]);         // Create a text node
-                        node.appendChild(textnode);                              // Append the text to <li>
-                        document.getElementById('schedule').appendChild(node);
-                    }
-                    */
                 }
             });
         }

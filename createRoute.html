@@ -33,16 +33,16 @@
     <br>
         <br>
         Pace &emsp;&nbsp;&nbsp;&nbsp;
-            <select>
+            <select id = "Pace">
                 <option value="Casual">Casual</option>
                 <option value="Quick">Quick</option>
             </select>
     <br>
         <br>
         Travel &nbsp;&nbsp;&nbsp;&nbsp;
-            <select>
-                <option value="Cycling">Cycling</option>
-                <option value="Walking">Walking</option>
+            <select id = "Travel">
+                <option id = value="BICYCLING">Cycling</option>
+                <option id = value="WALKING">Walking</option>
             </select>
 	</div>
        <center>
@@ -75,6 +75,16 @@
             console.log(document.getElementById('startTime').value);
 		    var time = document.getElementById('startTime').value;
             url = 'addAttractions.html?time=' + encodeURIComponent(time);;
+            document.location.href = url;
+            
+            console.log(document.getElementById('Travel').value);
+		    var travel = document.getElementById('Travel').value;
+            url = url + '?travel=' + encodeURIComponent(travel);;
+            document.location.href = url;
+
+            console.log(document.getElementById('Pace').value);
+		    var pace = document.getElementById('Pace').value;
+            url = url + '?pace=' + encodeURIComponent(pace);;
             document.location.href = url;
 	    }
     </script>

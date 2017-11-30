@@ -339,7 +339,7 @@ GPXParser.prototype.addOurPointsToMap = function(arr) {
 
 
 
-GPXParser.prototype.drawRoute = function (travel) {
+GPXParser.prototype.drawRoute = function () {
     var directionsDisplay = new google.maps.DirectionsRenderer();
     var directionsService = new google.maps.DirectionsService();
     map = this.map;
@@ -347,7 +347,7 @@ GPXParser.prototype.drawRoute = function (travel) {
 
         var i;
         var request = {
-            travelMode: google.maps.TravelMode.travel,
+            travelMode: google.maps.TravelMode.WALKING,
             optimizeWaypoints: true,
 
         };
@@ -391,7 +391,7 @@ GPXParser.prototype.drawRoute = function (travel) {
         {
             origins: origin,
             destinations: destinations,
-            travelMode: travel
+            travelMode: 'WALKING'
         }, callback);
 
     function callback(response, status) {
