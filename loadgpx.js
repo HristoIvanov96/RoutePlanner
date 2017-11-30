@@ -347,7 +347,7 @@ GPXParser.prototype.drawRoute = function (travel) {
 
         var i;
         var request = {
-            travelMode: google.maps.TravelMode.travel,
+            travelMode: travel,
             optimizeWaypoints: true,
 
         };
