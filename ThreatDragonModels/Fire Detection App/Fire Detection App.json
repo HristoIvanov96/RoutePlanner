@@ -1,0 +1,16 @@
+{
+  "summary": {
+    "title": "Fire Detection App"
+  },
+  "detail": {
+    "contributors": [],
+    "diagrams": [
+      {
+        "title": "Fire Detection App Threat Model",
+        "thumbnail": "./public/content/images/thumbnail.stride.jpg",
+        "diagramType": "STRIDE",
+        "id": 0
+      }
+    ]
+  }
+}
