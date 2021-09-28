@@ -168,17 +168,29 @@
               "angle": 0,
               "id": "38c2b986-f33c-40da-94cb-02e611973e61",
               "z": 5,
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "outOfScope": false,
+              "threats": [
+                {
+                  "status": "Open",
+                  "severity": "Medium",
+                  "modelType": "STRIDE",
+                  "type": "Information disclosure",
+                  "title": "No auth required to access cameras",
+                  "description": "To access cameras your IP needs to be whitelisted in their firewall but an auth layer will secure the cameras even more",
+                  "mitigation": "Add auth layer to thermal cameras",
+                  "threatId": "907fe62f-cf4e-45be-b12c-76a2e3cf5dd2"
+                }
+              ],
               "attrs": {
                 ".element-shape": {
-                  "class": "element-shape hasNoOpenThreats isInScope"
+                  "class": "element-shape hasOpenThreats isInScope"
                 },
                 "text": {
                   "text": "thermal camera"
                 },
                 ".element-text": {
-                  "class": "element-text hasNoOpenThreats isInScope"
+                  "class": "element-text hasOpenThreats isInScope"
                 }
               }
             },
